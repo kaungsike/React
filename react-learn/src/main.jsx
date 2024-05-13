@@ -1,10 +1,23 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import { createElement } from "react";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const rootElement = document.querySelector("#root");
+
+const root = createRoot(rootElement);
+
+const task = ["Apple","Orange","Mango","Banana"]
+
+root.render(
+  createElement(
+    "div",
+    null,
+    createElement("h1", null, "Todo App"),
+    createElement(
+      "form",
+      null,
+      createElement("input", null),
+      createElement("button", null, "Add New")
+    ),
+    createElement("ul",null,task.map((el,index) => createElement("li",{key:index},el)))
+  )
+);
