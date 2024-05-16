@@ -2,29 +2,8 @@ import React from "react";
 import EmptyList from "./EmptyList";
 import List from "./List";
 
-export const ListGroup = () => {
-  const tasks = [
-    {
-      id: 1,
-      job: "read js book",
-      isDone: true,
-    },
-    {
-      id: 2,
-      job: "meet with client",
-      isDone: false,
-    },
-    {
-      id: 3,
-      job: "prepare for interview",
-      isDone: true,
-    },
-    {
-      id: 4,
-      job: "read react doc",
-      isDone: false,
-    },
-  ];
+export const ListGroup = (props) => {
+
   return (
     <div id="listGroup" className="w-full h-full">
       {/* {tests.map((test) => (
@@ -36,7 +15,9 @@ export const ListGroup = () => {
         </div>
       ))} */}
 
-      {tasks.map((task) => <List job={task.job} isDone={task.isDone}/>)}
+      {props.tasks.map((task) => (
+        <List job={task.job} key={task.id} isDone={task.isDone} />
+      ))}
 
       <EmptyList />
     </div>

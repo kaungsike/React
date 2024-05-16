@@ -1,6 +1,11 @@
 import React from "react";
 
 const List = (props) => {
+
+  const handleCheckBox = () => {
+
+  }
+
   return (
     <div className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${props.isDone && "bg-teal-100"}`}>
       <aside className="flex items-center h-full gap-2">
@@ -8,6 +13,7 @@ const List = (props) => {
           type="checkbox"
           name="check-box"
           id="check-box"
+          onChange={handleCheckBox}
           checked={props.isDone}
           className="list-check-box w-4 h-4 accent-teal-200 outline-none border border-teal-400"
         />
