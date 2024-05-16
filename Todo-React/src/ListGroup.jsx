@@ -3,7 +3,6 @@ import EmptyList from "./EmptyList";
 import List from "./List";
 
 export const ListGroup = (props) => {
-
   return (
     <div id="listGroup" className="w-full h-full">
       {/* {tests.map((test) => (
@@ -16,7 +15,15 @@ export const ListGroup = (props) => {
       ))} */}
 
       {props.tasks.map((task) => (
-        <List job={task.job} key={task.id} isDone={task.isDone} />
+        <List
+          job={task.job}
+          key={task.id}
+          id={task.id}
+          isDone={task.isDone}
+          checkTask={props.checkTask}
+          deleteTask={props.deleteTask}
+          editTask={props.editTask}
+        />
       ))}
 
       <EmptyList />

@@ -1,28 +1,72 @@
 import React from "react";
+import { useState } from "react";
 
 const List = (props) => {
+  // const [check, setCheck] = useState();
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [newJob,setNewJob] = useState(props.job);
 
   const handleCheckBox = () => {
+    props.checkTask(props.id);
+  };
 
+  const handleDelBtn = () => {
+    if (confirm("Are you sure to delete?")) {
+      props.deleteTask(props.id);
+    }
+  };
+
+  const handleEditBtn = () => {
+    setIsEdit(true);
+  };
+
+  const handleNewJobInput = (e) => {
+    setNewJob(e.target.value)
+  };
+
+  const handleUpdateInput = (e) => {
+    if(e.key=="Enter"){
+      props.editTask(newJob,props.id)
+      setIsEdit(false)
+    }
   }
 
   return (
-    <div className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${props.isDone && "bg-teal-100"}`}>
+    <div
+      className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${
+        props.isDone && "bg-teal-100 pointer-events-none scale-95 opacity-70"
+      }`}
+    >
       <aside className="flex items-center h-full gap-2">
         <input
           type="checkbox"
           name="check-box"
           id="check-box"
+          disabled={isEdit}
           onChange={handleCheckBox}
           checked={props.isDone}
           className="list-check-box w-4 h-4 accent-teal-200 outline-none border border-teal-400"
         />
-        <label className="list-text" htmlFor="check-box">
-          {props.job}
+        <label
+          className={`duration-200 flex items-center   list-text `}
+          htmlFor="check-box"
+        >
+          <p className={`${isEdit&&'hidden'} ${props.isDone ? "line-through" : ""}`}>{props.job}</p>
+          <input
+            onKeyUp={handleUpdateInput}
+            value={newJob}
+            onChange={handleNewJobInput}
+            className={`border py-1 px-2 outline-none  ${
+              isEdit ? "" : "hidden"
+            }`}
+          ></input>
         </label>
       </aside>
       <aside className="h-full flex items-center gap-2 translate-x-[115%] group-hover:translate-x-[5%] duration-300">
         <button
+          onClick={handleDelBtn}
           className="list-del-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="ojnuvd"
         >
@@ -40,6 +84,7 @@ const List = (props) => {
           </svg>
         </button>
         <button
+          onClick={handleEditBtn}
           className="list-edit-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="jw74f"
         >
