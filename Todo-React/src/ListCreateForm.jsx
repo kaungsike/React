@@ -1,5 +1,7 @@
 import React from 'react'
 import {useState} from "react"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export const ListCreateForm = (props) => {
 
@@ -13,7 +15,14 @@ export const ListCreateForm = (props) => {
   const handleAddBtn = () => {
     props.addTask(text)
     setText("")
+    toast.success('Successfully Added New List!')
   }
+
+  const handleEnter = (e) =>{
+    if(e.key==="Enter"){
+      handleAddBtn()
+    }
+}
 
   return (
     <div className="w-full h-[60px] flex">
@@ -23,6 +32,7 @@ export const ListCreateForm = (props) => {
       className="flex-grow outline-none px-3 border border-teal-400"
       value={text}
       onChange={handleTextInput}
+      onKeyUp={handleEnter}
     />
     <button
     onClick={handleAddBtn}

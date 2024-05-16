@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 import ListCreateForm from "./ListCreateForm";
 import Header from "./Header";
@@ -82,6 +83,7 @@ export const App = () => {
         checkTask={checkTask}
         editTask={editTask}
       />
+    <Toaster />
     </section>
   );
 };

@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import toast, { Toaster } from 'react-hot-toast';
 
 const List = (props) => {
   // const [check, setCheck] = useState();
@@ -13,9 +15,20 @@ const List = (props) => {
   };
 
   const handleDelBtn = () => {
-    if (confirm("Are you sure to delete?")) {
-      props.deleteTask(props.id);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Ate you sure to delete it?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0d9488",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        props.deleteTask(props.id);
+        toast.success('Successfully Deleted!',{ position: "bottom-center"})
+      }
+    });
   };
 
   const handleEditBtn = () => {
@@ -35,7 +48,7 @@ const List = (props) => {
 
   return (
     <div
-      className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${
+      className={`list border group animate__animated animate__zoomIn  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${
         props.isDone && "bg-teal-100 pointer-events-none scale-95 opacity-70"
       }`}
     >
