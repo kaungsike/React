@@ -6,6 +6,8 @@ import SubHeading from "./components/SubHeading";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CheckOutForm from "./components/CheckOutForm";
+import CheckOutItemList from "./components/CheckOutItemList";
+import Drawer from "./components/Drawer";
 
 const App = () => {
 
@@ -44,6 +46,12 @@ const App = () => {
   ]
   )
 
+  const [isDrawerOpen,setIsDrawerOpen] = useState(true)
+
+  const handelDrawer =  () => {
+    setIsDrawerOpen(!isDrawerOpen)
+  }
+
   return (
     <main className="flex flex-col min-h-screen py-10">
       <Header>
@@ -55,16 +63,18 @@ const App = () => {
       
      <Container>
      <CheckOutForm products={products}></CheckOutForm>
+     <CheckOutItemList></CheckOutItemList>
      </Container>
 
-      <Footer>
+      <Footer isDrawerOpen={isDrawerOpen}>
         <Container>
           <div className="flex gap-3 justify-end items-center">
-              <Button color="light">Manage Product</Button>
+              <Button color="light" onClick={handelDrawer}>Manage Product</Button>
               <Button>Print</Button>
           </div>
         </Container>
       </Footer>
+      <Drawer products={products} isDrawerOpen={isDrawerOpen} handelDrawer={handelDrawer}></Drawer>
     </main>
   );
 };

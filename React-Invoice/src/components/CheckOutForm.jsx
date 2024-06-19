@@ -4,7 +4,7 @@ import { Button, Label, Select, TextInput } from "flowbite-react";
 const CheckOutForm = ({ products }) => {
   return (
     <>
-      <form className="w-full block">
+      <form className="w-full block mb-7">
         <div className="grid grid-cols-5 items-center gap-3">
           <div className="col-span-2">
             <div className="mb-2 block">
