@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import CheckOutForm from "./components/CheckOutForm";
 import CheckOutItemList from "./components/CheckOutItemList";
 import Drawer from "./components/Drawer";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
 
@@ -109,6 +110,7 @@ const App = () => {
         </Container>
       </Footer>
       <Drawer products={products} isDrawerOpen={isDrawerOpen} handelDrawer={handelDrawer}></Drawer>
+      <Toaster />
     </main>
   );
 };

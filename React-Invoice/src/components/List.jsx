@@ -1,13 +1,26 @@
 import { Button, Table } from 'flowbite-react'
 import React from 'react'
-import { HiArchiveBoxXMark, HiMiniPlusSmall, HiMinusSmall } from 'react-icons/hi2'
+import toast from 'react-hot-toast'
+import { HiMiniPlusSmall, HiMinusSmall, HiOutlineTrash } from 'react-icons/hi2'
+import Swal from "sweetalert2"
 
 const List = ({item,removeItem,updateItemQuantity}) => {
 
   const handleDelBtn = () => {
-    if(confirm("Are you sure to delete?")){
-      removeItem(item.id)
-    }
+    Swal.fire({
+      // title: "Are you sure?",
+      text: "Are you sure you want to delete it?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0E7490",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeItem(item.id)
+      toast.success('Successfully Deleted!')
+      }
+    });
   }
 
   const handleAddQuantity = () => {
@@ -17,6 +30,9 @@ const List = ({item,removeItem,updateItemQuantity}) => {
   const handleSubQuantity = () => {
     if(item.quantity>1){
       updateItemQuantity(item.id,-1)
+    }
+    else{
+      toast.error("Can't Reduce Quantity!")
     }
   }
 
@@ -44,7 +60,7 @@ const List = ({item,removeItem,updateItemQuantity}) => {
         href="#"
         className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
       >
-        <HiArchiveBoxXMark />
+        <HiOutlineTrash />
       </button>
     </Table.Cell>
   </Table.Row>
