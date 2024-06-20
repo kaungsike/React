@@ -1,5 +1,4 @@
 import React from 'react'
-import MainHeading from './MainHeading'
 import SubHeading from './SubHeading'
 import { Button } from 'flowbite-react'
 import { HiXMark } from 'react-icons/hi2'
@@ -7,7 +6,7 @@ import CreateProductForm from './CreateProductForm'
 
 const Drawer = ({isDrawerOpen,handelDrawer,products}) => {
   return (
-    <div className={`fixed z-50 bg-white border border-gray-200 right-0 top-0 w-[320px] translate-x-full p-5 h-screen duration-300 ${isDrawerOpen && 'translate-x-0'}`}>
+    <div className={`fixed z-50 bg-white border border-gray-200 right-0 top-0 w-[320px] p-5 h-screen duration-300 ${!isDrawerOpen && 'translate-x-full'}`}>
         <div className='flex w-full justify-between items-center mb-10'>
             <Button onClick={handelDrawer} className='flex items-center justify-center' size="xs" color="light">
             <HiXMark />

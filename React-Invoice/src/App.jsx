@@ -46,10 +46,44 @@ const App = () => {
   ]
   )
 
-  const [isDrawerOpen,setIsDrawerOpen] = useState(true)
+  const [items,setItems] = useState([
+    // {
+    //   id : 1,
+    //   product : {
+    //       id: 1,
+    //       title: "Wireless Mouse",
+    //       price: 25.99,
+    //       stock: 150
+    //   },
+    //   quantity : 3,
+    //   cost : 76.89
+    // },
+  ])
+
+  const [isDrawerOpen,setIsDrawerOpen] = useState(false)
 
   const handelDrawer =  () => {
     setIsDrawerOpen(!isDrawerOpen)
+  }
+
+  const addItem = (newItem) => {
+    setItems([...items,newItem])
+  }
+
+  const removeItem = (id) => {
+    setItems(items.filter((item) => {
+      item.id !== id
+    }))
+  }
+
+  const updateItemQuantity = (id,amount) => {
+    setItems(items.map((item) => {
+      if(item.id === id){
+        item.quantity = item.quantity + amount;
+        item.cost = (item.product.price * item.quantity).toFixed(2)
+      }
+      return item;
+    }))
   }
 
   return (
@@ -62,8 +96,8 @@ const App = () => {
       </Header>
       
      <Container>
-     <CheckOutForm products={products}></CheckOutForm>
-     <CheckOutItemList></CheckOutItemList>
+     <CheckOutForm addItem={addItem} products={products}></CheckOutForm>
+     <CheckOutItemList updateItemQuantity={updateItemQuantity} removeItem={removeItem} addItem={addItem} items={items}></CheckOutItemList>
      </Container>
 
       <Footer isDrawerOpen={isDrawerOpen}>
