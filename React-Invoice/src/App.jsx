@@ -87,6 +87,10 @@ const App = () => {
     }))
   }
 
+  const addProduct = (newProduct) => {
+    setProducts([...products,newProduct])
+  }
+
   return (
     <main className="flex flex-col min-h-screen py-10">
       <Header>
@@ -109,7 +113,7 @@ const App = () => {
           </div>
         </Container>
       </Footer>
-      <Drawer products={products} isDrawerOpen={isDrawerOpen} handelDrawer={handelDrawer}></Drawer>
+      <Drawer addProduct={addProduct} products={products} isDrawerOpen={isDrawerOpen} handelDrawer={handelDrawer}></Drawer>
       <Toaster />
     </main>
   );
