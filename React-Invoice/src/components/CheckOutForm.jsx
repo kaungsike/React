@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Button, Label, Select, TextInput } from "flowbite-react";
+import { GeneralContext } from "../context/GeneralProvider";
 
-const CheckOutForm = ({ products,addItem }) => {
+const CheckOutForm = ( ) => {
+
+  const {addItem,products} = useContext(GeneralContext);
   
 
   const selectRef = useRef();
@@ -29,6 +32,8 @@ const CheckOutForm = ({ products,addItem }) => {
     }
 
     addItem(newItem)
+
+    console.log(newItem.id);
 
     // selectRef.current.;
     formRef.current.reset()

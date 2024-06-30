@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table } from "flowbite-react";
 import List from "./List";
+import { GeneralContext } from "../context/GeneralProvider";
 
-const CheckOutItemList = ({ items,removeItem,updateItemQuantity }) => {
+const CheckOutItemList = ({ removeItem, updateItemQuantity }) => {
+  const { items } = useContext(GeneralContext);
 
-  const total = (items.reduce((pv,cv) => pv+parseFloat(cv.cost),0)).toFixed(2);
+  const total = items
+    .reduce((pv, cv) => pv + parseFloat(cv.cost), 0)
+    .toFixed(2);
 
   return (
     <div className="overflow-x-auto">
@@ -20,8 +24,14 @@ const CheckOutItemList = ({ items,removeItem,updateItemQuantity }) => {
         </Table.Head>
         <Table.Body className="divide-y">
           {items.map((item) => (
-            <List updateItemQuantity={updateItemQuantity} removeItem={removeItem} key={item.id} item={item} />
+            <List
+              updateItemQuantity={updateItemQuantity}
+              removeItem={removeItem}
+              key={item.id}
+              item={item}
+            />
           ))}
+          {/* <List/> */}
 
           {items.length === 0 && (
             <Table.Row>
@@ -34,7 +44,9 @@ const CheckOutItemList = ({ items,removeItem,updateItemQuantity }) => {
             </Table.Row>
           )}
           <Table.Row>
-            <Table.Cell className="text-center" colSpan={3}>Total</Table.Cell>
+            <Table.Cell className="text-center" colSpan={3}>
+              Total
+            </Table.Cell>
             <Table.Cell className="text-end">$ {total}</Table.Cell>
             <Table.Cell></Table.Cell>
           </Table.Row>
