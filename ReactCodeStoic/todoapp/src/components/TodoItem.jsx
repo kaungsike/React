@@ -1,15 +1,30 @@
 import React from "react";
 
-const TodoItem = ({ todo,handleDeleteList }) => {
-
+const TodoItem = ({ todo, handleDeleteList, setTodos, todos ,checkboxChange}) => {
   const handleDelete = () => {
-    handleDeleteList(todo.id)
-  }
+    handleDeleteList(todo.id);
+  };
+
+  const handleCheckbox = () => {
+    checkboxChange(todo.id)
+  };
 
   return (
     <div className="bg-white border w-full py-[7px] justify-between h-[50px] flex items-center px-[15px] rounded-lg">
-      <p>{todo.job}</p>
-      <button onClick={handleDelete} className="border w-[36px] active:scale-90 duration-150 flex items-center justify-center rounded-full h-full">
+      <div className="flex gap-2">
+        <input
+          type="checkbox"
+          onChange={handleCheckbox}
+          checked={todo.isDone}
+          name=""
+          id=""
+        />
+        <p className={`${todo.isDone ? 'line-through' : ''}`}>{todo.job}</p>
+      </div>
+      <button
+        onClick={handleDelete}
+        className="border w-[36px] active:scale-90 duration-150 flex items-center justify-center rounded-full h-full"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

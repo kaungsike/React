@@ -10,13 +10,14 @@ const Form = ({todo,todos,setTodo,setTodos}) => {
       e.preventDefault();
       const newList = {
         id : Date.now(),
-        job : todo
+        job : todo,
+        isDone : false,
       }
       setTodos([...todos, newList]);
       setTodo("");
     }}
   >
-    <input
+    <input required
       type="text"
       onChange={(e) => setTodo(e.target.value)}
       value={todo}
