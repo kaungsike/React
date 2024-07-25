@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Search from './components/Search'
+import FoodList from './components/FoodList';
 
 const App = () => {
+
+  const [foodData,setFoodData] = useState([]);
+  console.log(foodData)
+
   return (
     <div>
-      <Search/>
+      <Search foodData={foodData} setFoodData={setFoodData}/>
+      <FoodList foodData={foodData}/>
     </div>
   )
 }
