@@ -16,10 +16,10 @@ const Search = ({foodData,setFoodData}) => {
   }, [query]);
 
   return (
-    <div>
+    <div className="border mb-4 py-4 flex items-center justify-center">
       <input
         value={query}
-        className="border outline-none"
+        className="border outline-none px-2 py-1 text-lg rounded-md"
         type="text"
         name=""
         id=""

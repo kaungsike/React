@@ -1,17 +1,12 @@
 import React from "react";
+import FoodItem from "./FoodItem";
 
 const FoodList = ({foodData}) => {
   return (
-    <div>
-      {" "}
-      {foodData.map((data) => {
-        return (
-          <div key={data.id}>
-            <p>{data.title}</p>
-            <img src={data.image} alt="" />
-          </div>
-        );
-      })}
+    <div className="">
+      {foodData.map((data) =>
+      <FoodItem key={data.id} foodData={data}/>
+      )}
     </div>
   );
 };
