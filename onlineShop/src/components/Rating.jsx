@@ -8,7 +8,7 @@ const Rating = ({ rate }) => {
   const run = Array.from({ length: 5 }, (_, i) => ++i);
 
   return (
-    <div className="mt-auto flex">
+    <div className=" flex">
       {run.map((ele) => {
         return (
           <svg
