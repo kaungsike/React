@@ -1,14 +1,17 @@
-import React from 'react'
-import Container from '../components/Container'
-import Cart_Section from '../components/Cart_Section'
-
+import React from "react";
+import Container from "../components/Container";
+import Breadcrumb from "../components/Breadcrumb";
+import CartSection from "../components/CartSection";
 
 const MyCart = () => {
   return (
-    <Container>
-        <Cart_Section/>
-    </Container>
-  )
-}
+    <div className="p-[20px]">
+      <Container>
+        <Breadcrumb currentPageTitle={"My Cart"} />
+        <CartSection />
+      </Container>
+    </div>
+  );
+};
 
-export default MyCart
+export default MyCart;

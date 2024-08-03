@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCart from "./ProductCart";
 import Container from "./Container";
-import products from "../data/product";
+import products from "../data/products";
 
 const ProductSection = () => {
 
