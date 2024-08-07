@@ -1,6 +1,7 @@
 import React from "react";
 import Rating from "./Rating";
 import products from "../data/productsData";
+import { Link } from "react-router-dom";
 
 const Products = () => {
 
@@ -10,7 +11,7 @@ const Products = () => {
     <>
       {products.map((product) => {
         return (
-          <div key={product.id} className="border border-gray-700 p-5 flex flex-col items-start gap-3">
+          <Link to={`/productDetail/${product.id}`} key={product.id} className="border border-gray-700 p-5 flex flex-col items-start gap-3">
             <img src={product.image} alt="" className="h-40" />
             <p className="line-clamp-2">{product.title}</p>
 
@@ -24,7 +25,7 @@ const Products = () => {
                 Add to cart
               </button>
             </div>
-          </div>
+          </Link>
         );
       })}
     </>

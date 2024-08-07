@@ -6,7 +6,7 @@ const Categories = () => {
     <>
         {categories.map((category) => {
             return (
-                <button key={category} className='border border-gray-600 px-6 py-2'>{category}</button>
+                <button key={category} className='border border-gray-600 px-6 py-2 text-nowrap'>{category}</button>
             )
         })}
     </>
