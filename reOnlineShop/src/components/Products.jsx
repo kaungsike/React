@@ -2,6 +2,7 @@ import React from "react";
 import Rating from "./Rating";
 import products from "../data/productsData";
 import { Link } from "react-router-dom";
+import carts from "../data/cart";
 
 const Products = () => {
 
@@ -21,9 +22,13 @@ const Products = () => {
 
             <div className="flex justify-between items-center w-full">
               <p>Price ( $ {product.price} )</p>
-              <button className="border border-black px-4 py-1 text-sm">
+              {
+                carts.find((cart) => cart.product.id==product.id)? <button className="border bg-black text-white border-black px-4 py-1 text-sm">
+                Added
+              </button> : <button className="border border-black px-4 py-1 text-sm">
                 Add to cart
               </button>
+              }
             </div>
           </Link>
         );
