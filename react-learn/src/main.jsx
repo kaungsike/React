@@ -5,13 +5,14 @@ import "./style.css"
 // import { createElement } from "react";
 import { createRoot } from "react-dom/client";
 // import App from "./App";
-import App from "./App";
+import Faq from "./Faq";
+import FaqSection from "./FaqSection";
 
 const rootElement = document.querySelector("#root");
 
 const root = createRoot(rootElement);
 
-root.render(<App/>);
+root.render(<FaqSection/>);
 
 // const root = createRoot(rootElement);
 
