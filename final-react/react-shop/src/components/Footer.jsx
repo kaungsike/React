@@ -5,7 +5,7 @@ const Footer = () => {
     const date = new Date();
 
   return (
-    <footer className='w-full mt-auto flex justify-center items-center bg-gray-800 text-white h-12'>
+    <footer className='w-full flex justify-center items-center bg-gray-800 text-white h-12'>
             <p>Copyright &copy; {date.getFullYear()}</p>
     </footer>
   )
