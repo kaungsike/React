@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const [count, setCount] = useState(0);
 
-export default App
+  return (
+    <div className="flex flex-col items-center justify-center h-screen w-full gap-5">
+      <h1 className="text-5xl font-bold">{count}</h1>
+      <div className="flex gap-5">
+        <button
+          onClick={() => setCount(count + 1)}
+          className="border border-black px-6 py-2 rounded active:scale-95 duration-150"
+        >
+          Increment
+        </button>
+        <button
+          onClick={() => setCount(count - 1)}
+          className="border border-black px-6 py-2 rounded active:scale-95 duration-150"
+        >
+          Decrement
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default App;
