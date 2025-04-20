@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Heading from "./components/Heading";
-import CreateTask from "./components/CreateTask";
-import TaskList from "./components/TaskList";
+import TaskContext from "./TaskContext";
 
-const App = () => {
+const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -31,16 +29,18 @@ const App = () => {
   };
 
   const doneTask = (id) => {
-    setTasks(tasks.map((task) => (task.id==id ? {...task,completed:!task.completed} : task) ))
-  }
+    setTasks(
+      tasks.map((task) =>
+        task.id == id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 w-[430px] bg-gray-200 mx-auto mt-10 rounded-lg shadow-lg">
-      <Heading />
-      <CreateTask addNewTask={addNewTask} />
-      <TaskList doneTask={doneTask} deleteTask={deleteTask} tasks={tasks} />
-    </div>
+    <TaskContext.Provider value={{ tasks, addNewTask, deleteTask, doneTask }}>
+      {children}
+    </TaskContext.Provider>
   );
 };
 
-export default App;
+export default TaskProvider;

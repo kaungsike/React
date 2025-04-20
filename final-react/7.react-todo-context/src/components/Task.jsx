@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import TaskContext from '../context/TaskContext'
 
-const Task = ({task : {id, title, completed}, deleteTask,doneTask}) => {
+const Task = ({task : {id, title, completed}}) => {
+
+  const {deleteTask,doneTask} = useContext(TaskContext);
 
   const handleDeleteBtn = () => {
     deleteTask(id)

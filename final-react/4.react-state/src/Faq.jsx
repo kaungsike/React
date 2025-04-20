@@ -1,6 +1,11 @@
 import React from "react";
 
-const Faq = ({ faq: { question, answer }, handleToggle, open }) => {
+const Faq = ({ faq: { id, isOpen, question, answer }, handleOpen }) => {
+  
+  const handleToggle = () => {
+    handleOpen(id);
+  }
+
   return (
     <>
       <div
@@ -14,7 +19,7 @@ const Faq = ({ faq: { question, answer }, handleToggle, open }) => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className={`size-6 duration-300 ${open && "rotate-180"}`}
+          className={`size-6 duration-300 ${isOpen && "rotate-180"}`}
         >
           <path
             strokeLinecap="round"
@@ -25,7 +30,7 @@ const Faq = ({ faq: { question, answer }, handleToggle, open }) => {
       </div>
       <p
         className={`border bg-gray-200 w-full duration-150 p-5 border-black ${
-          !open && "hidden"
+          !isOpen && "hidden"
         }`}
       >
         {answer}

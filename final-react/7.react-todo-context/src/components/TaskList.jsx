@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Task from "./Task";
+import TaskContext from "../context/TaskContext";
 
-const TaskList = ({tasks,deleteTask,doneTask}) => {
+const TaskList = ({}) => {
+
+  const {tasks} = useContext(TaskContext);
+
+  console.log(tasks);
 
 
   return (
@@ -12,7 +17,7 @@ const TaskList = ({tasks,deleteTask,doneTask}) => {
         </div>
       <div className="w-full flex flex-col gap-2 mt-5 bg-white p-3 rounded">
         {tasks.map((task) => (
-          <Task doneTask={doneTask} deleteTask={deleteTask} task={task} key={task.id} />
+          <Task key={task.id} task={task} />
         ))}
         <p className="w-full text-center hidden first:flex items-center justify-center">There is no taks</p>
       </div>
