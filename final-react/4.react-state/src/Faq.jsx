@@ -1,9 +1,14 @@
 import React from "react";
+import useFaqsStore from "./store/useFaqsStore";
 
-const Faq = ({ faq: { id, isOpen, question, answer }, handleOpen }) => {
+const Faq = ({ faq: { id, isOpen, question, answer } }) => {
+
+  console.log(id);
+
+  const {toggleFaq} = useFaqsStore();
   
   const handleToggle = () => {
-    handleOpen(id);
+    toggleFaq(id);
   }
 
   return (
