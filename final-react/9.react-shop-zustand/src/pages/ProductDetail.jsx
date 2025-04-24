@@ -7,7 +7,7 @@ import useCartsStore from "../store/useCartsStore";
 import toast from "react-hot-toast";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { slugUrl } = useParams();
 
   const { products } = useProductStore();
 
@@ -15,7 +15,7 @@ const ProductDetail = () => {
 
   const count = 5;
 
-  const currentProduct = products.find((product) => product.id == id);
+  const currentProduct = products.find((product) => product.slugUrl == slugUrl);
 
   const handleAddedBtn = () => {
     toast.error("Already added")

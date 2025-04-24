@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
   }
 
   const handleOpenDetail = () => {
-    navigate(`/productDetail/${product.id}`)
+    navigate(`/productDetail/${product.slugUrl}`)
   }
 
   return (

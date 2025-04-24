@@ -1,0 +1,45 @@
+{
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Set up project folder",
+        "status": "done"
+      },
+      {
+        "id": 2,
+        "title": "Initialize Git repository",
+        "status": "done"
+      },
+      {
+        "id": 3,
+        "title": "Create HTML structure",
+        "status": "in progress"
+      },
+      {
+        "id": 4,
+        "title": "Style with CSS",
+        "status": "pending"
+      },
+      {
+        "id": 5,
+        "title": "Add JavaScript functionality",
+        "status": "pending"
+      },
+      {
+        "id": 6,
+        "title": "Make website responsive",
+        "status": "pending"
+      },
+      {
+        "id": 7,
+        "title": "Test in different browsers",
+        "status": "pending"
+      },
+      {
+        "id": 8,
+        "title": "Deploy to GitHub Pages",
+        "status": "pending"
+      }
+    ]
+  }
+  
