@@ -11,9 +11,10 @@
     "api": "json-server tasks.json -p 5000 -d 1000"
   },
   "dependencies": {
-    "framer-motion": "^11.18.2",
+    "axios": "^1.9.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
