@@ -11,13 +11,13 @@ const Dashboard = () => {
         <Container>
             <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-5 lg:py-10'>
                 <div className='col-span-1 '>
-                    <ModuleBtn name={"Product"} icon={<DiNetbeans className='text-orange-500 w-20 h-20' />} url={"/product"}/>
+                    <ModuleBtn name={"Products"} icon={<DiNetbeans className='text-orange-500 w-20 h-20' />} url={"/product"}/>
                 </div>
                 <div className='col-span-1 '>
-                    <ModuleBtn name={"Sale"} icon={<TbReportMoney className='text-orange-500 w-20 h-20' />} url={"/sale"}/>
+                    <ModuleBtn name={"Sales"} icon={<TbReportMoney className='text-orange-500 w-20 h-20' />} url={"/sale"}/>
                 </div>
                 <div className='col-span-1'>
-                    <ModuleBtn name={"Voucher"} icon={<GoFile className='text-orange-500 w-20 h-20' />} url={"/voucher"}/>
+                    <ModuleBtn name={"Vouchers"} icon={<GoFile className='text-orange-500 w-20 h-20' />} url={"/voucher"}/>
                 </div>
             </div>
         </Container>
