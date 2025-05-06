@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
+import { Toaster } from "@/components/ui/sonner"
 
 
 const Layout = () => {
@@ -14,6 +15,7 @@ const Layout = () => {
             <Outlet/>
             <Footer/>
             </div>
+            <Toaster />
         </ThemeProvider>
     </>
   )

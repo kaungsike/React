@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "OnePlus 12",
+      "price": 799.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "OnePlus 12R",
+      "price": 499.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "OnePlus Nord CE 3 Lite",
+      "price": 229.99,
+      "createdAt": "2023-04-04T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "OnePlus Nord 3",
+      "price": 399.99,
+      "createdAt": "2023-07-05T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "name": "OnePlus Open (Foldable)",
+      "price": 1699.00,
+      "createdAt": "2023-10-19T00:00:00Z"
+    },
+    {
+      "id": 6,
+      "name": "OnePlus 11",
+      "price": 699.99,
+      "createdAt": "2023-01-04T00:00:00Z"
+    },
+    {
+      "id": 7,
+      "name": "OnePlus Nord N30",
+      "price": 299.00,
+      "createdAt": "2023-06-06T00:00:00Z"
+    },
+    {
+      "id": 8,
+      "name": "OnePlus 10 Pro",
+      "price": 549.00,
+      "createdAt": "2022-01-11T00:00:00Z"
+    },
+    {
+      "id": 9,
+      "name": "OnePlus 9RT",
+      "price": 429.00,
+      "createdAt": "2022-01-14T00:00:00Z"
+    },
+    {
+      "id": 10,
+      "name": "OnePlus 8T",
+      "price": 399.00,
+      "createdAt": "2020-10-14T00:00:00Z"
+    }
+  ]
+}

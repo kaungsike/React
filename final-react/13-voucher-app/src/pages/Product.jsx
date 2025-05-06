@@ -8,6 +8,8 @@ import { LuPlus } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
 
 const Product = () => {
+
+  console.log(import.meta.env.VITE_API_URL);
   return (
     <div>
       <Container>
