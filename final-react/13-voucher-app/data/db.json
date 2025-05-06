@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 2,
+      "name": "OnePlus 12R",
+      "price": 499.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "OnePlus Nord CE 3 Lite",
+      "price": 229.99,
+      "createdAt": "2023-04-04T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "OnePlus Nord 3",
+      "price": 399.99,
+      "createdAt": "2023-07-05T00:00:00Z"
+    },
+    {
+      "id": 1,
+      "name": "OnePlus 12",
+      "price": 799.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    }
+  ]
+}

@@ -11,11 +11,9 @@ import {
 import { TableSkeleton } from "../ui/table-skeleton";
 import { TableEmpty } from "../ui/table-empty-state";
 import Table_Row from "../ui/table-row";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+
 
 const ProductLists = () => {
-  const navigate = useNavigate();
 
   const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -32,10 +30,21 @@ const ProductLists = () => {
       method: "DELETE",
     });
 
-    toast("Event has been created.");
     mutate(import.meta.env.VITE_API_URL + "/products");
-    navigate("/product");
+
+
   };
+
+  const unDeleteProduct = async (product) => {
+    const res = await fetch(import.meta.env.VITE_API_URL + "/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+      })
+    mutate(import.meta.env.VITE_API_URL + "/products");
+  }
 
   return (
     <div className="mt-5">
@@ -58,6 +67,7 @@ const ProductLists = () => {
             data.map((el) => (
               <Table_Row
                 deleteProduct={deleteProduct}
+                unDeleteProduct={unDeleteProduct}
                 product={el}
                 key={el.id}
               />

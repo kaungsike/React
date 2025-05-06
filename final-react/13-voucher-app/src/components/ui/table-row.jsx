@@ -1,33 +1,64 @@
-import React from "react";
-import { Button } from "@/components/ui/button"
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { TableCell, TableRow } from "@/components/ui/table";
 import {
-    TableCell,
-    TableRow,
-  } from "@/components/ui/table";
-  import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-  import { HiDotsHorizontal } from "react-icons/hi";
-  import { LiaEditSolid, LiaTrashAltSolid } from "react-icons/lia";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { LiaEditSolid, LiaTrashAltSolid } from "react-icons/lia";
+import { DotPulse } from "ldrs/react";
+import "ldrs/react/DotPulse.css";
+import { toast } from "sonner";
 
-const Table_Row = ({product : {id, name, price,createdAt},deleteProduct}) => {
+const Table_Row = ({
+  product: { id, name, price, createdAt },
+  deleteProduct,unDeleteProduct
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const product = { id, name, price, createdAt };
+  const handleDeleteBtn = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await deleteProduct(id);
+      setLoading(false);
+      setMenuOpen(false);
+      setTimeout(() => {
+        toast("Product deleted Successfully", {
+          description: new Date().toLocaleString(),
+          action: {
+            label: "Undo",
+            onClick: handleUndoBtn,
+          },
+        });
+      }, 1000);
+    } catch (err) {
+      console.error("Delete failed", err);
+      setLoading(false);
+    }
+  };
+
+  const handleUndoBtn = async () => {
+    unDeleteProduct(product);
+  };
 
   const date = new Date(createdAt);
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  const formattedDate = date.toLocaleDateString('en-US', options);
-  const formattedTime = date.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false,
   });
   const d = `${formattedDate} ${formattedTime}`;
-
-  const handleDeleteBtn = (e) => {
-    e.preventDefault();
-    deleteProduct(id);
-  }
 
   return (
     <TableRow>
@@ -36,17 +67,30 @@ const Table_Row = ({product : {id, name, price,createdAt},deleteProduct}) => {
       <TableCell>$ {price}</TableCell>
       <TableCell>{d}</TableCell>
       <TableCell className="text-right">
-        <DropdownMenu>
+        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="p-2">
             <HiDotsHorizontal />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <button type="button" className="w-full mb-1" id={id}>
-              <LiaEditSolid  /> Edit
-            </button>
-            <button type="button" onClick={handleDeleteBtn} className="w-full"  id={id}>
-              <LiaTrashAltSolid /> Delete
-            </button>
+            <Button type="button" className="w-full mb-1" id={id}>
+              <LiaEditSolid /> Edit
+            </Button>
+            <Button
+              type="button"
+              onClick={handleDeleteBtn}
+              className="w-full flex items-center justify-center gap-2"
+              id={id}
+              disabled={loading}
+            >
+              {loading ? (
+                <DotPulse size={24} speed={1.3} color="white" />
+              ) : (
+                <>
+                  <LiaTrashAltSolid />
+                  Delete
+                </>
+              )}
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>
