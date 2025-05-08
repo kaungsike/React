@@ -18,6 +18,7 @@ const Table_Row = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [undoLoading, setUndoLoading] = useState(false);
 
   const product = { id, name, price, createdAt };
   const handleDeleteBtn = async (e) => {
@@ -45,6 +46,16 @@ const Table_Row = ({
 
   const handleUndoBtn = async () => {
     unDeleteProduct(product);
+    setUndoLoading(true);
+    try {
+      await unDeleteProduct(product);
+      toast.success("Undo successful");
+    } catch (err) {
+      toast.error("Undo failed");
+    } finally {
+      setUndoLoading(false);
+      toast.dismiss(t.id);
+    }
   };
 
   const date = new Date(createdAt);

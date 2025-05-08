@@ -1,0 +1,19 @@
+import React from 'react'
+import Container from '../layout/Container'
+import BreadCrumb from '../components/template/BreadCrumb'
+import ProductCreateCard from '../components/template/ProductCreateCard'
+
+const ProductCreatePage = () => {
+  return (
+    <div>
+        <Container>
+            <div className="w-full py-5">
+                <BreadCrumb link={[{path:"/product",title:"Products"}]} currentPage={"Create Product"}/>
+                <ProductCreateCard/>
+            </div>
+        </Container>
+    </div>
+  )
+}
+
+export default ProductCreatePage

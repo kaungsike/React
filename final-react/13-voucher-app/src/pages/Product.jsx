@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LuPlus } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Product = () => {
 
@@ -20,7 +21,7 @@ const Product = () => {
               <Input type="search" placeholder="" />
               <Button type="submit"><FiSearch /> Search</Button>
             </div>
-          <Button type="button"><LuPlus /> Add New</Button>
+          <Link to={"/productCreate"} className="flex h-[36px] rounded-md px-2 dark:bg-orange-600 items-center gap-2 bg-orange-500 text-white"><LuPlus /> Add New</Link>
           </div>
           <ProductLists />
         </div>
