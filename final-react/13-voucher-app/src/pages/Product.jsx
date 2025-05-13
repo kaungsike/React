@@ -21,7 +21,7 @@ const Product = () => {
               <Input type="search" placeholder="" />
               <Button type="submit"><FiSearch /> Search</Button>
             </div>
-          <Link to={"/productCreate"} className="flex h-[36px] rounded-md px-2 dark:bg-orange-600 items-center gap-2 bg-orange-500 text-white"><LuPlus /> Add New</Link>
+          <Link to={"/productCreate"} className="flex h-[36px] rounded-md px-2 dark:bg-orange-600 items-center gap-2 bg-orange-500 text-white text-[14px] text-nowrap"><LuPlus /> Add New</Link>
           </div>
           <ProductLists />
         </div>

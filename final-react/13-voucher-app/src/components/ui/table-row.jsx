@@ -11,6 +11,7 @@ import { LiaEditSolid, LiaTrashAltSolid } from "react-icons/lia";
 import { DotPulse } from "ldrs/react";
 import "ldrs/react/DotPulse.css";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const Table_Row = ({
   product: { id, name, price, createdAt },
@@ -83,9 +84,9 @@ const Table_Row = ({
             <HiDotsHorizontal />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Button type="button" className="w-full mb-1" id={id}>
+            <Link to={`/productEdit/${id}`} className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1" id={id}>
               <LiaEditSolid /> Edit
-            </Button>
+            </Link>
             <Button
               type="button"
               onClick={handleDeleteBtn}
