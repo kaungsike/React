@@ -8,7 +8,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { dotPulse } from "ldrs";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
-import useSWR from "swr";
 const ProductCreateCard = () => {
   const {
     register,
