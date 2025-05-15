@@ -37,7 +37,7 @@ const VoucherTable = () => {
             <td className="text-center font-bold h-full" colSpan={5}>
                 Total
             </td>{}
-            <td className="text-end px-1.5 h-full font-bold" colSpan={1} > $ {records.reduce((a,b) => a + b.cost,0)} </td>
+            <td className="text-end px-1.5 h-full font-bold" colSpan={1} > $ {(records.reduce((a,b) => a + b.cost,0).toFixed(2))} </td>
           </tr>
         </TableBody>
       </Table>

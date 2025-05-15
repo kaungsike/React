@@ -16,8 +16,18 @@ import {
 import { HiDotsHorizontal } from "react-icons/hi";
 
 import { LiaEditSolid, LiaTrashAltSolid } from "react-icons/lia";
+import Voucher_List_Row from "../ui/voucher_list_row";
+import useSWR from "swr";
 
 const VoucherLists = () => {
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+
+  const { data, isLoading, error } = useSWR(
+    import.meta.env.VITE_API_URL + "/vouchers",
+    fetcher
+  );
+
+
   return (
     <div className="mt-5">
       <Table className="">
@@ -26,29 +36,14 @@ const VoucherLists = () => {
             <TableHead className="">Voucher ID</TableHead>
             <TableHead>Customer Name</TableHead>
             <TableHead>Email</TableHead>
+            <TableHead>Grand Total</TableHead>
             <TableHead>Date</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">1</TableCell>
-            <TableCell>OnePlus 10 Pro</TableCell>
-            <TableCell>$ 599</TableCell>
-            <TableCell>5 May 2025</TableCell>
-            <TableCell className="text-right">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="p-2"><HiDotsHorizontal /></DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem><LiaEditSolid /> Edit</DropdownMenuItem>
-                  <DropdownMenuItem><LiaTrashAltSolid /> Delete</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* <Button type="button" className="mr-1.5"><LiaEditSolid /></Button>
-                <Button type="button"><LiaTrashAltSolid /></Button> */}
-            </TableCell>
-          </TableRow>
+          {!isLoading &&
+            data.map((item) => <Voucher_List_Row key={item.voucherId} voucher={item} />)}
         </TableBody>
       </Table>
     </div>

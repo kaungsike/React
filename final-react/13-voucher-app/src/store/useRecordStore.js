@@ -21,6 +21,11 @@ const useRecordStore = create((set) => ({
         return record;
       }),
     })),
+
+  clearRecords: () =>
+    set(() => ({
+      records: [],
+    })),
 }));
 
 export default useRecordStore;

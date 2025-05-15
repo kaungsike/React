@@ -4,37 +4,64 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { dotPulse } from "ldrs";
 import SaleForm from "./SaleForm";
 import VoucherTable from "./VoucherTable";
+import useRecordStore from "../../store/useRecordStore";
 const VoucherInfo = () => {
-  const [isSending, setIsSending] = useState(false);
-
-  dotPulse.register();
+  const { records,clearRecords } = useRecordStore();
+  const [isSending] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   function generateVoucherID(prefix = "VOUCH") {
-    const timestamp = Date.now().toString(36); // base-36 timestamp for compactness
-    const randomStr = Math.random().toString(36).slice(2, 7).toUpperCase(); // 5-character random string
+    const timestamp = Date.now().toString(36); 
+    const randomStr = Math.random().toString(36).slice(2, 7).toUpperCase(); 
     return `${prefix}-${timestamp}-${randomStr}`;
   }
 
   const voucherID = generateVoucherID();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const handleFormSubmit = (data) => {
-    console.log(data);
+  const total = records.reduce((a, b) => a + b.cost, 0).toFixed(2);
+  const tax = (total * 0.05).toFixed(2);
+  const grandTotal = (Number(total) + Number(tax)).toFixed(2);
+
+  const handleSubmitVoucher = async (data) => {
+    const currentVoucher = { ...data, records, total, tax, grandTotal };
+    
+    const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentVoucher),
+    });
+    clearRecords();
+    
+    const newVoucherID = generateVoucherID();
+  const newSaleDate = new Date().toLocaleDateString("sv-SE", {
+    timeZone: "Asia/Yangon",
+  });
+  reset({
+    voucherId: newVoucherID,
+    saleDate: newSaleDate,
+    customerName: "",
+    customerEmail: "",
+  });
+
   };
+
+
 
   return (
     <>
       <form
         id="infoForm"
-        onSubmit={handleSubmit(handleFormSubmit)}
+        onSubmit={handleSubmit(handleSubmitVoucher)}
         className="mt-5"
       >
         <div className="grid grid-cols-4  w-full items-start gap-3 mb-5">

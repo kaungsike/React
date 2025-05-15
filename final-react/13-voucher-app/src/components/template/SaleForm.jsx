@@ -36,6 +36,9 @@ const SaleForm = () => {
     const product = JSON.parse(data.product);
     const cost = product.price * Number(data.quantity);
 
+    console.log(data);
+    console.log(product);
+
     const finalData = {
         id: Date.now(),
         productId: product.id,
@@ -45,8 +48,14 @@ const SaleForm = () => {
         cost,
       };
 
-    if (records.find((el) => el.productId == product.id)) {
-      updateQuantity(data.id, Number(data.quantity));
+    records.forEach((el) => console.log(el))
+
+    const isExited = records.find((el) => el.productId == product.id)
+
+    console.log(isExited);
+
+    if (isExited) {
+      updateQuantity(isExited.id, Number(data.quantity));
     } else {
       addRecord(finalData);
     }
