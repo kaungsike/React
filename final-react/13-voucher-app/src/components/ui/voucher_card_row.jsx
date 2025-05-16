@@ -17,15 +17,9 @@ import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { useSWRConfig } from "swr";
 
-const Voucher_List_Row = ({
+const Voucher_Card_Row = ({
   voucher: {
-    voucherId,
-    customerName,
-    customerEmail,
-    grandTotal,
-    saleDate,
-    createdAt,
-    id,
+    id,name,price,quantity,cost
   },
   deleteProduct,
   unDeleteProduct,
@@ -56,39 +50,20 @@ const Voucher_List_Row = ({
     }, 1000);
   };
 
-  const date = new Date(createdAt);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  const formattedTime = date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-  const d = `${formattedDate} ${formattedTime}`;
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{voucherId}</TableCell>
-      <TableCell>{customerName}</TableCell>
-      <TableCell>$ {customerEmail}</TableCell>
-      <TableCell>$ {grandTotal}</TableCell>
-      <TableCell>{saleDate}</TableCell>
+      <TableCell className="font-medium">{id}</TableCell>
+      <TableCell>{name}</TableCell>
+      <TableCell>$ {price}</TableCell>
+      <TableCell>{quantity}</TableCell>
+      <TableCell>$ {cost}</TableCell>
       <TableCell className="text-right">
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="p-2">
             <HiDotsHorizontal />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link
-              to={`/voucherDetail/${id}`}
-              className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
-              id={id}
-            >
-              <LiaEditSolid /> Detail
-            </Link>
             <Button
               type="button"
               onClick={handleDeleteBtn}
@@ -112,4 +87,4 @@ const Voucher_List_Row = ({
   );
 };
 
-export default Voucher_List_Row;
+export default Voucher_Card_Row;

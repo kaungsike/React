@@ -32,10 +32,6 @@ const route = createBrowserRouter([
         element: <Voucher />,
       },
       {
-        path: "/voucherDetail",
-        element: <VoucherDetail />,
-      },
-      {
         path: "/productCreate",
         element: <ProductCreatePage />,
       },
@@ -43,6 +39,10 @@ const route = createBrowserRouter([
         path: "/productEdit/:id",
         element: <ProductEditPage />,
       },
+      {
+        path : "/voucherDetail/:id",
+        element : <VoucherDetail/>
+      }
     ],
   },
 ]);
