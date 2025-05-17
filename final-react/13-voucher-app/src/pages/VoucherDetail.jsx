@@ -12,7 +12,9 @@ const VoucherDetail = () => {
             currentPage={"Voucher Detail"}
             link={[{ path: "/voucher", title: "Voucher" }]}
           />
+          <div className="w-full lg:flex-row lg:h-auto h-[950px] flex-col flex items-center justify-between mt-5">
           <VoucherCard/>
+          </div>
         </div>
       </Container>
     </div>

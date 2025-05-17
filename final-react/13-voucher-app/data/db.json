@@ -97,5 +97,34 @@
       "createdAt": "2020-04-14T00:00:00Z"
     }
   ],
-  "vouchers": []
+  "vouchers": [
+    {
+      "voucherId": "VOUCH-marqv798-ON4K8",
+      "customerName": "Kyaw Kyaw",
+      "customerEmail": "santar9@gmail.com",
+      "saleDate": "2025-05-17",
+      "records": [
+        {
+          "id": 1747457152862,
+          "productId": 3,
+          "name": "OnePlus Nord CE 3 Lite",
+          "price": 229.99,
+          "quantity": 1,
+          "cost": 229.99
+        },
+        {
+          "id": 1747457156971,
+          "productId": 8,
+          "name": "OnePlus Nord CE 2",
+          "price": 249.99,
+          "quantity": 2,
+          "cost": 499.98
+        }
+      ],
+      "total": "729.97",
+      "tax": "36.50",
+      "grandTotal": "766.47",
+      "id": 1
+    }
+  ]
 }

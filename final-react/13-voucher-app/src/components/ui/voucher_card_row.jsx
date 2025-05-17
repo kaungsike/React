@@ -58,31 +58,6 @@ const Voucher_Card_Row = ({
       <TableCell>$ {price}</TableCell>
       <TableCell>{quantity}</TableCell>
       <TableCell>$ {cost}</TableCell>
-      <TableCell className="text-right">
-        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-          <DropdownMenuTrigger className="p-2">
-            <HiDotsHorizontal />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <Button
-              type="button"
-              onClick={handleDeleteBtn}
-              className="w-full flex items-center justify-center gap-2"
-              // id={id}
-              disabled={loading}
-            >
-              {loading ? (
-                <DotPulse size={24} speed={1.3} color="white" />
-              ) : (
-                <>
-                  <LiaTrashAltSolid />
-                  Delete
-                </>
-              )}
-            </Button>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </TableCell>
     </TableRow>
   );
 };
