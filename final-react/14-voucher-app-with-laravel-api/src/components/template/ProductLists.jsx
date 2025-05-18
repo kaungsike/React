@@ -17,28 +17,24 @@ import { LuPlus } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
+import useCookie from "react-use-cookie";
 
 const ProductLists = () => {
-  const fetcher = (url) => fetch(url).then((r) => r.json());
+  const [token] = useCookie("my_token");
+
+  const [url, setUrl] = useState(import.meta.env.VITE_API_URL + "/products");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => r.json());
 
   const [search, setSearch] = useState("");
 
-  const { data, error, isLoading } = useSWR(
-    search
-      ? import.meta.env.VITE_API_URL + "/products?name_like=" + search
-      : import.meta.env.VITE_API_URL + "/products",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR(url, fetcher);
 
   const { mutate } = useSWRConfig();
-
-  const deleteProduct = async (id) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/products/` + id, {
-      method: "DELETE",
-    });
-
-    mutate(import.meta.env.VITE_API_URL + "/products");
-  };
 
   const unDeleteProduct = async (product) => {
     const res = await fetch(import.meta.env.VITE_API_URL + "/products", {
@@ -51,11 +47,15 @@ const ProductLists = () => {
     mutate(import.meta.env.VITE_API_URL + "/products");
   };
 
-  !isLoading && console.log(data);
+  !isLoading && console.log(data, { data });
+
+  console.log("this is the token", token);
 
   const handleSearchInput = debounce((e) => {
     setSearch(e.target.value);
-  },1000);
+    setUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`)
+    console.log(url);
+  }, 1000);
 
   return (
     <div className="mt-5">
@@ -93,12 +93,11 @@ const ProductLists = () => {
                 Failed to load products.
               </td>
             </tr>
-          ) : data.length === 0 ? (
+          ) : data.data.length === 0 ? (
             <TableEmpty />
           ) : (
-            data.map((el) => (
+            data.data.map((el) => (
               <Table_Row
-                deleteProduct={deleteProduct}
                 unDeleteProduct={unDeleteProduct}
                 product={el}
                 key={el.id}

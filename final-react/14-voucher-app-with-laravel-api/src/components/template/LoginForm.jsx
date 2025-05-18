@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import useCookie from 'react-use-cookie';
 
 const LoginForm = () => {
     const {
@@ -23,6 +24,9 @@ const LoginForm = () => {
         reset,
         formState: { errors },
       } = useForm();
+
+      const [token,setToken] = useCookie("my_token");
+
     
     const navigate = useNavigate();
     
@@ -44,9 +48,10 @@ const LoginForm = () => {
             toast.success("Register Successful.");
             console.log(json);
             console.log(res);
+            setToken(json.token)
             navigate("/dashboard")
           } else {
-            toast.error("Failed to register.");
+            toast.error("Failed to Login.");
             console.log(res);
           }
     

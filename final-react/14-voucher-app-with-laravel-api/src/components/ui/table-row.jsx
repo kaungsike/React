@@ -12,54 +12,53 @@ import { DotPulse } from "ldrs/react";
 import "ldrs/react/DotPulse.css";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import useCookie from "react-use-cookie";
+import { useSWRConfig } from "swr";
 
-const Table_Row = ({
-  product: { id, name, price, createdAt },
-  deleteProduct,unDeleteProduct
-}) => {
+const Table_Row = ({ product: { id, product_name, price, created_at } }) => {
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [undoLoading, setUndoLoading] = useState(false);
 
-  const product = { id, name, price, createdAt };
-  const handleDeleteBtn = async (e) => {
-    e.preventDefault();
+  const product = { id, product_name, price, created_at };
+
+  const [token] = useCookie("my_token");
+
+  const {mutate} = useSWRConfig();
+
+  const handleDeleteBtn = async () => {
     setLoading(true);
 
-    try {
-      await deleteProduct(id);
-      setLoading(false);
-      setMenuOpen(false);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/products/` + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`, // 🔐 Include this
+        Accept: "application/json",
+      },
+    });
+
+    console.log(`${import.meta.env.VITE_API_URL}/products/` + id);
+
+    const json = await res.json();
+
+    if (res.status === 200) {
       setTimeout(() => {
-        toast("Product deleted Successfully", {
+        toast.success(json.message, {
           description: new Date().toLocaleString(),
-          action: {
-            label: "Undo",
-            onClick: handleUndoBtn,
-          },
         });
       }, 1000);
-    } catch (err) {
-      console.error("Delete failed", err);
-      setLoading(false);
+      mutate(import.meta.env.VITE_API_URL + `/products`);
+    } else {
+      setTimeout(() => {
+        toast.error(json.message, {
+          description: new Date().toLocaleString(),
+        });
+      }, 1000);
     }
+    setLoading(false);
   };
 
-  const handleUndoBtn = async () => {
-    unDeleteProduct(product);
-    setUndoLoading(true);
-    try {
-      await unDeleteProduct(product);
-      toast.success("Undo successful");
-    } catch (err) {
-      toast.error("Undo failed");
-    } finally {
-      setUndoLoading(false);
-      toast.dismiss(t.id);
-    }
-  };
-
-  const date = new Date(createdAt);
+  const date = new Date(created_at);
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "2-digit",
@@ -75,7 +74,7 @@ const Table_Row = ({
   return (
     <TableRow>
       <TableCell className="font-medium">{id}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>{product_name}</TableCell>
       <TableCell>$ {price}</TableCell>
       <TableCell>{d}</TableCell>
       <TableCell className="text-right">
@@ -84,7 +83,11 @@ const Table_Row = ({
             <HiDotsHorizontal />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link to={`/productEdit/${id}`} className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1" id={id}>
+            <Link
+              to={`/dashboard/product/edit/${id}`}
+              className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
+              id={id}
+            >
               <LiaEditSolid /> Edit
             </Link>
             <Button

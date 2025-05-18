@@ -50,7 +50,7 @@ const route = createBrowserRouter([
             element: <ProductCreatePage />,
           },
           {
-            path: "productEdit/:id",
+            path: "product/edit/:id",
             element: <ProductEditPage />,
           },
           {

@@ -9,21 +9,32 @@ import { dotPulse } from "ldrs";
 import { toast } from "sonner";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useSWR, { useSWRConfig } from "swr";
-import { m } from "motion/react";
+import useCookie from "react-use-cookie";
+
 const ProductEditCard = () => {
   const { id } = useParams();
 
   const nevigate = useNavigate();
-  const {mutate} = useSWRConfig();
+  const { mutate } = useSWRConfig();
 
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const [token] = useCookie("my_tokne");
+
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => r.json());
+
+    console.log(id);
+  
 
   const { data, isLoading, error } = useSWR(
-    import.meta.env.VITE_API_URL + "/products/" + id,
+    import.meta.env.VITE_API_URL + `/products/${id}`,
     fetcher
   );
 
-  console.log(id);
+  !isLoading && console.log(data);
 
   const {
     register,
@@ -40,9 +51,8 @@ const ProductEditCard = () => {
     setIsSending(true);
 
     data.created_at = new Date().toISOString();
-    console.log(data);
 
-    const res = await fetch(import.meta.env.VITE_API_URL + "/products/"+id, {
+    const res = await fetch(import.meta.env.VITE_API_URL + "/products/" + id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +64,7 @@ const ProductEditCard = () => {
       description: data.created_at,
     });
 
-    mutate(
-      import.meta.env.VITE_API_URL + "/products/" + id)
+    mutate(import.meta.env.VITE_API_URL + "/products/" + id);
 
     setIsSending(false);
     reset();
@@ -66,16 +75,16 @@ const ProductEditCard = () => {
     <div className="mt-5">
       <form action="" onSubmit={handleSubmit(handleEditProduct)}>
         {isLoading ? (
-<>
-<div className="grid w-full items-center gap-1.5 mb-5">
-            <Label htmlFor="name">Product Name</Label>
-            <div className="h-10 w-full bg-gray-300 dark:bg-slate-700 rounded-md animate-pulse" />
-          </div>
-          <div className="grid w-full items-center gap-1.5 mb-5">
-            <Label htmlFor="name">Price</Label>
-            <div className="h-10 w-full bg-gray-300 dark:bg-slate-700 rounded-md animate-pulse" />
-          </div>
-</>
+          <>
+            <div className="grid w-full items-center gap-1.5 mb-5">
+              <Label htmlFor="name">Product Name</Label>
+              <div className="h-10 w-full bg-gray-300 dark:bg-slate-700 rounded-md animate-pulse" />
+            </div>
+            <div className="grid w-full items-center gap-1.5 mb-5">
+              <Label htmlFor="name">Price</Label>
+              <div className="h-10 w-full bg-gray-300 dark:bg-slate-700 rounded-md animate-pulse" />
+            </div>
+          </>
         ) : (
           <>
             <div className="grid w-full items-center gap-1.5 mb-5">
@@ -86,7 +95,7 @@ const ProductEditCard = () => {
                   minLength: 3,
                   maxLength: 20,
                 })}
-                defaultValue={data.name}
+                defaultValue={data?.data.product_name}
                 type="text"
                 id="name"
                 placeholder="Eg - Apple"
@@ -123,7 +132,7 @@ const ProductEditCard = () => {
                 type="number"
                 id="price"
                 step="any"
-                defaultValue={data.price}
+                defaultValue={data?.data.price}
                 placeholder="Eg - 199"
                 className={`${
                   errors.price
@@ -151,7 +160,8 @@ const ProductEditCard = () => {
         )}
 
         <div className="items-top mt-5 flex space-x-2">
-          <Checkbox required
+          <Checkbox
+            required
             id="terms1"
             {...register("allCorrect", { required: true })}
           />
