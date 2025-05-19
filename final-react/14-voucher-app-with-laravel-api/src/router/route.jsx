@@ -18,32 +18,24 @@ const route = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        index : true,
-        element : <LoginPage/>
+        index: true,
+        element: <LoginPage />,
       },
       {
-        path : "/register",
-        element : <RegisterPage/>
+        path: "/register",
+        element: <RegisterPage />,
       },
       {
-        path : "dashboard",
-        element : <Layout/>,
-        children : [
+        path: "dashboard",
+        element: <Layout />,
+        children: [
           {
-            index : true,
+            index: true,
             element: <Dashboard />,
           },
           {
             path: "product",
             element: <Product />,
-          },
-          {
-            path: "sale",
-            element: <Sale />,
-          },
-          {
-            path: "voucher",
-            element: <Voucher />,
           },
           {
             path: "productCreate",
@@ -54,11 +46,19 @@ const route = createBrowserRouter([
             element: <ProductEditPage />,
           },
           {
-            path : "voucherDetail/:id",
-            element : <VoucherDetail/>
-          }
-        ]
-      }
+            path: "sale",
+            element: <Sale />,
+          },
+          {
+            path: "voucher",
+            element: <Voucher />,
+          },
+          {
+            path: "voucher/voucherDetail/:id",
+            element: <VoucherDetail />,
+          },
+        ],
+      },
     ],
   },
 ]);

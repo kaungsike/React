@@ -35,7 +35,7 @@ const VoucherInfo = () => {
     formState: { errors },
   } = useForm();
 
-  function generateVoucherID(prefix = "VOUCH") {
+  function generateVoucherID(prefix = "INVT") {
     const timestamp = Date.now().toString(36);
     const randomStr = Math.random().toString(36).slice(2, 7).toUpperCase();
     return `${prefix}-${timestamp}-${randomStr}`;
@@ -50,14 +50,16 @@ const VoucherInfo = () => {
   const handleSubmitVoucher = async (data) => {
     const currentVoucher = { ...data, records, total, tax, grandTotal };
 
-    const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(currentVoucher),
-    });
-    clearRecords();
+    // const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(currentVoucher),
+    // });
+    // clearRecords();
+
+    console.log(currentVoucher);
 
     const newVoucherID = generateVoucherID();
     const newSaleDate = new Date().toLocaleDateString("sv-SE", {
@@ -235,7 +237,7 @@ const VoucherInfo = () => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Link
-              to={"/product"}
+              to={"/dashboard/"}
               variant="scondary"
               className="bg-slate-200 text-sm text-slate-900 dark:bg-slate-800 dark:text-slate-100 rounded-md px-2 h-[36px] flex items-center justify-center"
             >

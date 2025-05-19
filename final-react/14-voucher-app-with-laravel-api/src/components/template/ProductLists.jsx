@@ -18,6 +18,7 @@ import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
 import useCookie from "react-use-cookie";
+import ProductPagination from "./ProductPagination";
 
 const ProductLists = () => {
   const [token] = useCookie("my_token");
@@ -47,9 +48,7 @@ const ProductLists = () => {
     mutate(import.meta.env.VITE_API_URL + "/products");
   };
 
-  !isLoading && console.log(data, { data });
-
-  console.log("this is the token", token);
+  !isLoading && console.log(data);
 
   const handleSearchInput = debounce((e) => {
     setSearch(e.target.value);
@@ -81,6 +80,7 @@ const ProductLists = () => {
             <TableHead>Name</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Created At</TableHead>
+            <TableHead>Update At</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -106,6 +106,7 @@ const ProductLists = () => {
           )}
         </TableBody>
       </Table>
+     {!isLoading &&  <ProductPagination setUrl={setUrl} meta={data?.meta} links={data?.links}/>}
     </div>
   );
 };

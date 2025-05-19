@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import useCookie from "react-use-cookie";
 import { useSWRConfig } from "swr";
 
-const Table_Row = ({ product: { id, product_name, price, created_at } }) => {
+const Table_Row = ({ product: { id, product_name, price, created_at,updated_at } }) => {
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [undoLoading, setUndoLoading] = useState(false);
@@ -58,7 +58,8 @@ const Table_Row = ({ product: { id, product_name, price, created_at } }) => {
     setLoading(false);
   };
 
-  const date = new Date(created_at);
+const dateFormat = (item) => {
+  const date = new Date(item);
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "2-digit",
@@ -71,12 +72,18 @@ const Table_Row = ({ product: { id, product_name, price, created_at } }) => {
   });
   const d = `${formattedDate} ${formattedTime}`;
 
+  return d;
+
+}
+
+
   return (
     <TableRow>
       <TableCell className="font-medium">{id}</TableCell>
       <TableCell>{product_name}</TableCell>
       <TableCell>$ {price}</TableCell>
-      <TableCell>{d}</TableCell>
+      <TableCell>{dateFormat(created_at)}</TableCell>
+      <TableCell>{dateFormat(updated_at)}</TableCell>
       <TableCell className="text-right">
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="p-2">

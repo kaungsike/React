@@ -17,7 +17,7 @@ const ProductEditCard = () => {
   const nevigate = useNavigate();
   const { mutate } = useSWRConfig();
 
-  const [token] = useCookie("my_tokne");
+  const [token] = useCookie("my_token");
 
   const fetcher = (url) =>
     fetch(url, {
@@ -26,8 +26,7 @@ const ProductEditCard = () => {
       },
     }).then((r) => r.json());
 
-    console.log(id);
-  
+  console.log(id);
 
   const { data, isLoading, error } = useSWR(
     import.meta.env.VITE_API_URL + `/products/${id}`,
@@ -50,25 +49,41 @@ const ProductEditCard = () => {
   const handleEditProduct = async (data) => {
     setIsSending(true);
 
-    data.created_at = new Date().toISOString();
+    data.updated_at = new Date().toISOString();
+
+    console.log(data);
 
     const res = await fetch(import.meta.env.VITE_API_URL + "/products/" + id, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        product_name: data.product_name,
+        price: data.price,
+        updated_at: data.updated_at,
+      }),
     });
 
-    toast.success("Product edit has been successfully", {
-      description: data.created_at,
-    });
+    const json = await res.json();
 
-    mutate(import.meta.env.VITE_API_URL + "/products/" + id);
+    console.log(res, json);
+
+    if (res.status === 200) {
+      toast.success(json.message, {
+        description: data.updated_at,
+      });
+      reset();
+      mutate(import.meta.env.VITE_API_URL + "/products/" + id);
+      nevigate("/dashboard/product");
+    } else {
+      toast.error(json.message, {
+        description: data.updated_at,
+      });
+    }
 
     setIsSending(false);
-    reset();
-    nevigate("/product");
   };
 
   return (
@@ -90,32 +105,32 @@ const ProductEditCard = () => {
             <div className="grid w-full items-center gap-1.5 mb-5">
               <Label htmlFor="name">Product Name</Label>
               <Input
-                {...register("name", {
+                {...register("product_name", {
                   required: true,
                   minLength: 3,
-                  maxLength: 20,
+                  maxLength: 50,
                 })}
                 defaultValue={data?.data.product_name}
                 type="text"
-                id="name"
+                id="product_name"
                 placeholder="Eg - Apple"
                 className={`${
-                  errors.name
+                  errors.product_name
                     ? "border-red-500 ring-red-500 focus:ring-red-600"
                     : ""
                 }`}
               />
-              {errors.name?.type === "required" && (
+              {errors.product_name?.type === "required" && (
                 <p role="alert" className="text-red-500 text-sm">
                   Product name is required
                 </p>
               )}
-              {errors.name?.type === "minLength" && (
+              {errors.product_name?.type === "minLength" && (
                 <p role="alert" className="text-red-500 text-sm">
                   Product name must be at least 3 characters
                 </p>
               )}
-              {errors.name?.type === "maxLength" && (
+              {errors.product_name?.type === "maxLength" && (
                 <p role="alert" className="text-red-500 text-sm">
                   Product name must be less than 20 characters
                 </p>
@@ -177,7 +192,7 @@ const ProductEditCard = () => {
         </div>
         <div className="flex items-center space-x-2 mt-5">
           <Link
-            to={"/product"}
+            to={"/dashboard/product"}
             variant="scondary"
             className="bg-slate-200 text-sm text-slate-900 dark:bg-slate-800 dark:text-slate-100 rounded-md px-2 h-[36px] flex items-center justify-center"
           >

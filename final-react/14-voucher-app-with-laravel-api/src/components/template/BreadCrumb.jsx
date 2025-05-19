@@ -14,7 +14,7 @@ const BreadCrumb = ({ currentPage, link = []}) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <Link to={"/"}>Home</Link>
+          <Link to={"/dashboard"}>Home</Link>
         </BreadcrumbItem>
 
         <BreadcrumbSeparator />

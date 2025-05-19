@@ -16,6 +16,8 @@ const VoucherTable = () => {
     const {records} = useRecordStore();
 
 
+    console.log(records);
+
 
 
   return (
@@ -32,7 +34,7 @@ const VoucherTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {records && records.map((item,index) => <Voucher_Row product={item} index={index} key={index}/>)}
+          {records && records.map((item,index) => <Voucher_Row product={item.product} cost={item.cost} index={index} quantity={item.quantity} key={index}/>)}
           <tr className="h-[47px]">
             <td className="text-center font-bold h-full" colSpan={5}>
                 Total

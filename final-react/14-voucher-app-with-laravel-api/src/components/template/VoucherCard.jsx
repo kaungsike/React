@@ -18,18 +18,24 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import Voucher_Card_Row from "../ui/voucher_card_row";
 import printJS from "print-js";
+import useCookie from "react-use-cookie";
 
 export default function VoucherCard() {
   const { id } = useParams();
 
-  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const [token] = useCookie('my_token')
+
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => r.json());
 
   const { data, isLoading, error } = useSWR(
     import.meta.env.VITE_API_URL + "/vouchers/" + id,
     fetcher
   );
-
-  !isLoading && console.log(data);
 
   const handlePrintBtn = () => {
     printJS({
@@ -52,24 +58,8 @@ export default function VoucherCard() {
     })
   }
 
-  const handleExportToPTFBtn = () => {
-    const opt = {
-      margin: 0.5,
-      filename: 'invoice.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'cm', format: 'a5', orientation: 'portrait' },
-    };
-  
-    const element = document.getElementById('printArea');
-  
-    if (window.html2pdf && element) {
-      window.html2pdf().set(opt).from(element).save();
-    } else {
-      alert("html2pdf failed to load.");
-    }
-    console.log(element);
-  };
+
+
   
 
   return (
@@ -83,7 +73,7 @@ export default function VoucherCard() {
                   Invoice ID
                 </h1>
                 <p className="text-gray-700 dark:text-gray-300">
-                  {data.voucherId}
+                  {data.data.voucher_id}
                 </p>
               </div>
               <div className="text-right">
@@ -91,10 +81,10 @@ export default function VoucherCard() {
                   Invoice to
                 </p>
                 <p className="font-medium text-gray-900 dark:text-white">
-                  {data.customerName}
+                  {data.data.customer_name}
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">
-                  Date: {data.saleDate}
+                  Date: {data.data.sale_date}
                 </p>
               </div>
             </CardHeader>
@@ -111,7 +101,7 @@ export default function VoucherCard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody className="overflow-visible">
-                  {data.records.map((item) => (
+                  {data.data.records.map((item) => (
                     <Voucher_Card_Row key={item.id} voucher={item} />
                   ))}
                 </TableBody>
@@ -120,16 +110,16 @@ export default function VoucherCard() {
               <div className="flex flex-col items-end space-y-1.5 text-gray-900 dark:text-white">
                 <div className="flex justify-between w-40">
                   <span className="font-medium">Total</span>
-                  <span className="font-medium">$ {data.total}</span>
+                  <span className="font-medium">$ {data.data.total}</span>
                 </div>
                 <div className="flex justify-between w-40">
                   <span className="font-medium">Tax</span>
-                  <span className="font-medium">$ {data.tax}</span>
+                  <span className="font-medium">$ {data.data.tax}</span>
                 </div>
                 <Separator className="my-2" />
                 <div className="flex justify-between w-40">
                   <span className="font-medium">Net Total</span>
-                  <span className="font-medium">$ {data.grandTotal}</span>
+                  <span className="font-medium">$ {data.data.net_total}</span>
                 </div>
               </div>
 

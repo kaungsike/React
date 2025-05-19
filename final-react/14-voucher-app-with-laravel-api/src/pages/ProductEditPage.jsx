@@ -10,7 +10,7 @@ const ProductEditPage = () => {
       <Container>
         <div className="w-full py-5">
           <BreadCrumb
-            link={[{ path: "/product", title: "Products" }]}
+            link={[{ path: "/dashboard/product", title: "Products" }]}
             currentPage={"Edit Product"}
           />
           <h4 className="text-sm font-medium mt-5 leading-none mb-2">Edit product</h4>

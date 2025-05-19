@@ -15,27 +15,29 @@ import Voucher_List_Row from "../ui/voucher_list_row";
 import useSWR from "swr";
 import { dotWave } from "ldrs";
 import { debounce, throttle } from "lodash";
+import useCookie from "react-use-cookie";
 
 const VoucherLists = () => {
-  const [search, setSearch] = useState("");
 
-  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const [url, setUrl] = useState(import.meta.env.VITE_API_URL + "/vouchers");
+
+  const [token] = useCookie("my_token");
+
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => r.json());
 
   const handleSearch = debounce((e) => {
-    setSearch(e.target.value);
+    setUrl(`${import.meta.env.VITE_API_URL}/vouchers?q=${e.target.value}`)
   }, 1000);
 
-  const { data, isLoading, error } = useSWR(
-    search
-      ? import.meta.env.VITE_API_URL + "/vouchers?voucherId_like=" + search
-      : import.meta.env.VITE_API_URL + "/vouchers",
-    fetcher
-  );
+  const { data, isLoading, error } = useSWR(url, fetcher);
 
-  search &&
-    console.log(
-      import.meta.env.VITE_API_URL + "/vouchers?voucherId_like=" + search
-    );
+
+  !isLoading && console.log(data);
 
   dotWave.register();
 
@@ -43,7 +45,11 @@ const VoucherLists = () => {
     <>
       <div className="flex w-full gap-2 items-center justify-between mt-7">
         <div className="flex w-full max-w-[340px] gap-2 items-center">
-          <Input onChange={handleSearch} type="search" placeholder="Search with id" />
+          <Input
+            onChange={handleSearch}
+            type="search"
+            placeholder="Search with name"
+          />
         </div>
         <Button type="button">
           <LuPlus /> Add New
@@ -73,12 +79,17 @@ const VoucherLists = () => {
                   ></l-dot-wave>
                 </th>
               </tr>
-            ) : data.length>0 ?                 data.map((item) => (
-              <Voucher_List_Row key={item.voucherId} voucher={item} /> 
-            )) : <tr>
-            <th colSpan={6} className="h-[47px]">There is no voucher</th>
-          </tr>
-            }
+            ) : data.data.length > 0 ? (
+              data.data.map((item) => (
+                <Voucher_List_Row setUrl={setUrl} key={item.voucher_id} voucher={item} />
+              ))
+            ) : (
+              <tr>
+                <th colSpan={6} className="h-[47px]">
+                  There is no voucher
+                </th>
+              </tr>
+            )}
           </TableBody>
         </Table>
       </div>

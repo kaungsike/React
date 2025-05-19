@@ -17,17 +17,26 @@ import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 
 const Voucher_Row = ({
-  product: { id, name, price, quantity, cost, createdAt },
+  product: { id, product_name, price, createdAt },
   deleteProduct,
   unDeleteProduct,
+  cost,
+  quantity,
+
   index,
 }) => {
+
+  console.log(id);
+
+  
+
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { deleteRecord, updateQuantity } = useRecordStore();
 
-  const product = { id, name, price, createdAt };
+  const product = { id, product_name, price, createdAt };
+  console.log(product);
   const handleDeleteBtn = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -43,7 +52,6 @@ const Voucher_Row = ({
     }, 1000);
   };
 
-  const handleUndoBtn = () => {};
 
   const handleAddQuantity = () => {
     updateQuantity(id, 1);
@@ -68,7 +76,7 @@ const Voucher_Row = ({
   return (
     <TableRow>
       <TableCell className="font-medium">{index + 1}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>{product_name}</TableCell>
       <TableCell>$ {price}</TableCell>
       <TableCell>
         {" "}

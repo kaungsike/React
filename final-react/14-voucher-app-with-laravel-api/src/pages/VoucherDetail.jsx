@@ -10,7 +10,7 @@ const VoucherDetail = () => {
         <div className="w-full py-5">
           <BreadCrumb
             currentPage={"Voucher Detail"}
-            link={[{ path: "/voucher", title: "Voucher" }]}
+            link={[{ path: "/dashboard/voucher", title: "Voucher" }]}
           />
           <div className="w-full lg:flex-row lg:h-auto h-[950px] flex-col flex items-center justify-between mt-5">
           <VoucherCard/>

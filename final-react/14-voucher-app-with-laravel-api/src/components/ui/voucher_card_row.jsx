@@ -19,7 +19,7 @@ import { useSWRConfig } from "swr";
 
 const Voucher_Card_Row = ({
   voucher: {
-    id,name,price,quantity,cost
+    id,quantity,cost,product : {price,product_name}
   },
   deleteProduct,
   unDeleteProduct,
@@ -54,7 +54,7 @@ const Voucher_Card_Row = ({
   return (
     <TableRow>
       <TableCell className="font-medium">{id}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>{product_name}</TableCell>
       <TableCell>$ {price}</TableCell>
       <TableCell>{quantity}</TableCell>
       <TableCell>$ {cost}</TableCell>

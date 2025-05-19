@@ -19,16 +19,18 @@ import { useSWRConfig } from "swr";
 
 const Voucher_List_Row = ({
   voucher: {
-    voucherId,
-    customerName,
-    customerEmail,
-    grandTotal,
+    voucher_id,
+    customer_name,
+    customer_email,
+    net_total,
     saleDate,
-    createdAt,
+    created_at,
+    updated_at,
     id,
   },
   deleteProduct,
   unDeleteProduct,
+  setUrl,
   index,
 }) => {
   const [loading, setLoading] = useState(false);
@@ -56,26 +58,31 @@ const Voucher_List_Row = ({
     }, 1000);
   };
 
-  const date = new Date(createdAt);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  const formattedTime = date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-  const d = `${formattedDate} ${formattedTime}`;
+  const dateForm = (item) => {
+
+    const date = new Date(item);
+    const formattedDate = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    const formattedTime = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    const d = `${formattedDate} ${formattedTime}`;
+    return d;
+  }
+
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{voucherId}</TableCell>
-      <TableCell>{customerName}</TableCell>
-      <TableCell>$ {customerEmail}</TableCell>
-      <TableCell>$ {grandTotal}</TableCell>
-      <TableCell>{saleDate}</TableCell>
+      <TableCell className="font-medium">{voucher_id}</TableCell>
+      <TableCell>{customer_name}</TableCell>
+      <TableCell>$ {customer_email}</TableCell>
+      <TableCell>$ {net_total}</TableCell>
+      <TableCell>{dateForm(created_at)}</TableCell>
       <TableCell className="text-right">
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className="p-2">
@@ -83,7 +90,7 @@ const Voucher_List_Row = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <Link
-              to={`/voucherDetail/${id}`}
+              to={`/dashboard/voucher/voucherDetail/${id}`}
               className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
               id={id}
             >

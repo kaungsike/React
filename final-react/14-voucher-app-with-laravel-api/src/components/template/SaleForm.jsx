@@ -13,11 +13,19 @@ import {
   SelectValue,
   SelectLabel,
 } from "@/components/ui/select";
+import useCookie from "react-use-cookie";
 import useRecordStore from "../../store/useRecordStore";
 const SaleForm = () => {
-  const fetcher = (url) => fetch(url).then((res) => res.json());
 
-  const { records, addRecord, updateQuantity } = useRecordStore();
+  const [token] = useCookie("my_token")
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => r.json());
+
+    const {records,addRecord} = useRecordStore();
 
   const {
     register,
@@ -36,21 +44,20 @@ const SaleForm = () => {
     const product = JSON.parse(data.product);
     const cost = product.price * Number(data.quantity);
 
-    console.log(data);
+    console.log(cost);
     console.log(product);
 
     const finalData = {
-        id: Date.now(),
-        productId: product.id,
-        name: product.name,
-        price: product.price,
+        product : product,
+        product_id: product.id,
         quantity: Number(data.quantity),
         cost,
+        created_at : new Date().toISOString
       };
 
     records.forEach((el) => console.log(el))
 
-    const isExited = records.find((el) => el.productId == product.id)
+    const isExited = records.find((el) => el.product_id == product.id)
 
     console.log(isExited);
 
@@ -62,6 +69,8 @@ const SaleForm = () => {
 
     reset();
   };
+
+  !isLoading && console.log(data.data);
 
   return (
     <div className="mt-5">
@@ -86,13 +95,13 @@ const SaleForm = () => {
                     <SelectGroup>
                       <SelectLabel>Items</SelectLabel>
                       {!isLoading &&
-                        data.map((item) => (
+                        data.data.map((item) => (
                           <SelectItem
                             key={item.id}
                             id={item.id}
                             value={JSON.stringify(item)}
                           >
-                            {item.name}
+                            {item.product_name}
                           </SelectItem>
                         ))}
                     </SelectGroup>
