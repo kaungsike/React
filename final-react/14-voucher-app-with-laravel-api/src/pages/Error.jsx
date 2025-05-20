@@ -26,7 +26,7 @@ const Error = () => {
         The road to freedom starts from here
       </p>
       <TypewriterEffect words={words} />
-      <Link to={"/"} className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-10">
+      <Link to={"/dashboard"} className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-10">
         <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
           Back to home
         </button>

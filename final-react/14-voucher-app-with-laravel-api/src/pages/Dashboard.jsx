@@ -8,10 +8,6 @@ import useCookie from 'react-use-cookie';
 
 const Dashboard = () => {
 
-    const [token] = useCookie("my_token");
-
-    console.log(token);
-
   return (
     <div>
         <Container>

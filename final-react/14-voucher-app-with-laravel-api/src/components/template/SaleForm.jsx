@@ -25,7 +25,7 @@ const SaleForm = () => {
       },
     }).then((r) => r.json());
 
-    const {records,addRecord} = useRecordStore();
+    const {records,addRecord,updateQuantity} = useRecordStore();
 
   const {
     register,
@@ -36,7 +36,7 @@ const SaleForm = () => {
   } = useForm();
 
   const { data, isLoading, error } = useSWR(
-    import.meta.env.VITE_API_URL + "/products",
+    import.meta.env.VITE_API_URL + "/products?limit=100",
     fetcher
   );
 
@@ -44,25 +44,24 @@ const SaleForm = () => {
     const product = JSON.parse(data.product);
     const cost = product.price * Number(data.quantity);
 
-    console.log(cost);
-    console.log(product);
-
     const finalData = {
         product : product,
         product_id: product.id,
         quantity: Number(data.quantity),
         cost,
-        created_at : new Date().toISOString
+        created_at : new Date().toISOString()
       };
 
-    records.forEach((el) => console.log(el))
+
+
+    console.log(product.id);
 
     const isExited = records.find((el) => el.product_id == product.id)
 
     console.log(isExited);
 
     if (isExited) {
-      updateQuantity(isExited.id, Number(data.quantity));
+      updateQuantity(product.id, Number(data.quantity));
     } else {
       addRecord(finalData);
     }
@@ -70,7 +69,6 @@ const SaleForm = () => {
     reset();
   };
 
-  !isLoading && console.log(data.data);
 
   return (
     <div className="mt-5">

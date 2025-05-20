@@ -92,7 +92,7 @@ const dateFormat = (item) => {
           <DropdownMenuContent>
             <Link
               to={`/dashboard/product/edit/${id}`}
-              className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
+              className="w-full font-[14px] text-white bg-zinc-900 dark:bg-zinc-100 dark:text-black rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
               id={id}
             >
               <LiaEditSolid /> Edit

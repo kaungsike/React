@@ -16,6 +16,7 @@ import useRecordStore from "../../store/useRecordStore";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { useSWRConfig } from "swr";
+import useCookie from "react-use-cookie";
 
 const Voucher_List_Row = ({
   voucher: {
@@ -36,6 +37,7 @@ const Voucher_List_Row = ({
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { mutate } = useSWRConfig();
+  const [token] = useCookie("my_token");
 
   const handleDeleteBtn = async (e) => {
     e.preventDefault();
@@ -43,23 +45,35 @@ const Voucher_List_Row = ({
 
     console.log(id);
 
-    await fetch(`${import.meta.env.VITE_API_URL}/vouchers/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/vouchers/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    console.log(import.meta.env.VITE_API_URL + "/vouchers/" + id);
-    mutate(import.meta.env.VITE_API_URL + "/vouchers");
+    const json = await res.json();
+
+    if (res.status == 200) {
+      setTimeout(() => {
+        toast(json.message, {
+          description: new Date().toLocaleString(),
+        });
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        toast(json.message, {
+          description: new Date().toLocaleString(),
+        });
+      }, 1000);
+    }
+
+    mutate(import.meta.env.VITE_API_URL + "/vouchers?linit=100");
     setLoading(false);
     setMenuOpen(false);
-    setTimeout(() => {
-      toast("Voucher deleted Successfully", {
-        description: new Date().toLocaleString(),
-      });
-    }, 1000);
   };
 
   const dateForm = (item) => {
-
     const date = new Date(item);
     const formattedDate = date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -73,8 +87,7 @@ const Voucher_List_Row = ({
     });
     const d = `${formattedDate} ${formattedTime}`;
     return d;
-  }
-
+  };
 
   return (
     <TableRow>
@@ -91,7 +104,7 @@ const Voucher_List_Row = ({
           <DropdownMenuContent>
             <Link
               to={`/dashboard/voucher/voucherDetail/${id}`}
-              className="w-full font-[14px] text-white bg-orange-500 dark:bg-orange-600 rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
+              className="w-full font-[14px] text-white bg-zinc-900 dark:bg-zinc-100 dark:text-black rounded-md flex items-center justify-center gap-2 h-[36px] mb-1"
               id={id}
             >
               <LiaEditSolid /> Detail

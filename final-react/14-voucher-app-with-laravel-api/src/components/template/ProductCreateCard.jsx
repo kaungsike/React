@@ -128,7 +128,7 @@ const ProductCreateCard = () => {
         </div>
         <div className="flex items-center space-x-2 mt-5">
           <Link
-            to={"/product"}
+            to={"/dashboard/product"}
             variant="scondary"
             className="bg-slate-200 text-sm text-slate-900 dark:bg-slate-800 dark:text-slate-100 rounded-md px-2 h-[36px] flex items-center justify-center"
           >

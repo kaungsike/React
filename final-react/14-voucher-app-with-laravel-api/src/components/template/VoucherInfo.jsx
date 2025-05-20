@@ -24,8 +24,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
+import useCookie from "react-use-cookie";
 
 const VoucherInfo = () => {
+
+  const [token] = useCookie("my_token")
+
   const { records, clearRecords } = useRecordStore();
   const [isSending] = useState(false);
   const {
@@ -41,23 +46,46 @@ const VoucherInfo = () => {
     return `${prefix}-${timestamp}-${randomStr}`;
   }
 
-  const voucherID = generateVoucherID();
+  const voucher_id = generateVoucherID();
 
   const total = records.reduce((a, b) => a + b.cost, 0).toFixed(2);
   const tax = (total * 0.05).toFixed(2);
-  const grandTotal = (Number(total) + Number(tax)).toFixed(2);
+  const net_total = (Number(total) + Number(tax)).toFixed(2);
+
+  const created_at = new Date().toISOString();
+  const updated_at = created_at;
 
   const handleSubmitVoucher = async (data) => {
-    const currentVoucher = { ...data, records, total, tax, grandTotal };
+    const currentVoucher = {
+      ...data,
+      records,
+      total,
+      tax,
+      net_total,
+      created_at,
+      updated_at,
+    };
 
-    // const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(currentVoucher),
-    // });
-    // clearRecords();
+
+    const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(currentVoucher),
+    });
+    clearRecords();
+
+    const json = await res.json();
+
+    console.log(json.message);
+
+    if (res.status == 200) {
+      toast.success(json.message);
+    }else{
+      toast.error(json.message)
+    }
 
     console.log(currentVoucher);
 
@@ -66,10 +94,10 @@ const VoucherInfo = () => {
       timeZone: "Asia/Yangon",
     });
     reset({
-      voucherId: newVoucherID,
-      saleDate: newSaleDate,
-      customerName: "",
-      customerEmail: "",
+      voucher_id: newVoucherID,
+      sale_date: newSaleDate,
+      customer_name: "",
+      customer_email: "",
     });
   };
 
@@ -97,136 +125,136 @@ const VoucherInfo = () => {
             >
               <div className="grid w-full items-center gap-4">
                 <div className="grid col-span-4 sm:col-span-2 lg:col-span-1 w-full items-center gap-1.5 mb-5">
-                  <Label htmlFor="voucherId">Voucher ID</Label>
+                  <Label htmlFor="voucher_id">Voucher ID</Label>
                   <Input
-                    {...register("voucherId", {
+                    {...register("voucher_id", {
                       required: true,
                       minLength: 1,
                       maxLength: 20,
                     })}
-                    defaultValue={voucherID}
+                    defaultValue={voucher_id}
                     type="text"
-                    id="voucherId"
+                    id="voucher_id"
                     placeholder="Eg - 213"
                     className={`${
-                      errors.voucherId
+                      errors.voucher_id
                         ? "border-red-500 ring-red-500 focus:ring-red-600"
                         : ""
                     }`}
                   />
-                  {errors.voucherId?.type === "required" && (
+                  {errors.voucher_id?.type === "required" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product name is required
                     </p>
                   )}
-                  {errors.voucherId?.type === "minLength" && (
+                  {errors.voucher_id?.type === "minLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product name must be at least 3 characters
                     </p>
                   )}
-                  {errors.voucherId?.type === "maxLength" && (
+                  {errors.voucher_id?.type === "maxLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product name must be less than 20 characters
                     </p>
                   )}
                 </div>
                 <div className="grid col-span-4 sm:col-span-2 lg:col-span-1 w-full items-center gap-1.5 mb-5">
-                  <Label htmlFor="customerName">Customer Name</Label>
+                  <Label htmlFor="customer_name">Customer Name</Label>
                   <Input
-                    {...register("customerName", {
+                    {...register("customer_name", {
                       required: true,
                       minLength: 2,
                       maxLength: 20,
                     })}
-                    type="mail"
-                    id="customerName"
+                    type="text"
+                    id="customer_name"
                     placeholder="Eg - John Doe"
                     className={`${
-                      errors.customerName
+                      errors.customer_name
                         ? "border-red-500 ring-red-500 focus:ring-red-600"
                         : ""
                     }`}
                   />
-                  {errors.customerName?.type === "required" && (
+                  {errors.customer_name?.type === "required" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer name is required
                     </p>
                   )}
-                  {errors.customerName?.type === "minLength" && (
+                  {errors.customer_name?.type === "minLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer name must be at least 2 characters
                     </p>
                   )}
-                  {errors.customerName?.type === "maxLength" && (
+                  {errors.customer_name?.type === "maxLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer name must be less than 20 characters
                     </p>
                   )}
                 </div>
                 <div className="grid col-span-4 sm:col-span-2 lg:col-span-1 w-full items-center gap-1.5 mb-5">
-                  <Label htmlFor="customerEmail">Customer Email</Label>
+                  <Label htmlFor="customer_email">Customer Email</Label>
                   <Input
-                    {...register("customerEmail", {
+                    {...register("customer_email", {
                       required: true,
                       minLength: 10,
                       maxLength: 40,
                     })}
                     type="text"
-                    id="customerEmail"
+                    id="customer_email"
                     placeholder="Eg - testing39!@gmail.com"
                     className={`${
-                      errors.customerEmail
+                      errors.customer_email
                         ? "border-red-500 ring-red-500 focus:ring-red-600"
                         : ""
                     }`}
                   />
-                  {errors.customerEmail?.type === "required" && (
+                  {errors.customer_email?.type === "required" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer email is required
                     </p>
                   )}
-                  {errors.customerEmail?.type === "minLength" && (
+                  {errors.customer_email?.type === "minLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer email must be at least 10 characters
                     </p>
                   )}
-                  {errors.customerEmail?.type === "maxLength" && (
+                  {errors.customer_email?.type === "maxLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Customer email must be less than 40 characters
                     </p>
                   )}
                 </div>
                 <div className="grid col-span-4 sm:col-span-2 lg:col-span-1 w-full items-center gap-1.5 mb-5">
-                  <Label htmlFor="saleDate">Sale Date</Label>
+                  <Label htmlFor="sale_date">Sale Date</Label>
                   <Input
-                    {...register("saleDate", {
+                    {...register("sale_date", {
                       required: true,
                       minLength: 2,
                       maxLength: 20,
                     })}
                     type="date"
-                    id="saleDate"
+                    id="sale_date"
                     defaultValue={new Date().toLocaleDateString("sv-SE", {
                       timeZone: "Asia/Yangon",
                     })}
                     placeholder="Eg - 1/2/2023"
                     className={`${
-                      errors.saleDate
+                      errors.sale_date
                         ? "border-red-500 ring-red-500 focus:ring-red-600"
                         : ""
                     }`}
                   />
-                  {errors.saleDate?.type === "required" && (
+                  {errors.sale_date?.type === "required" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product price is required
                     </p>
                   )}
-                  {errors.saleDate?.type === "minLength" && (
+                  {errors.sale_date?.type === "minLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product price must be at least 2 characters
                     </p>
                   )}
-                  {errors.saleDate?.type === "maxLength" && (
+                  {errors.sale_date?.type === "maxLength" && (
                     <p role="alert" className="text-red-500 text-sm">
                       Product price must be less than 20 characters
                     </p>

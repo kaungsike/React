@@ -48,7 +48,6 @@ const ProductLists = () => {
     mutate(import.meta.env.VITE_API_URL + "/products");
   };
 
-  !isLoading && console.log(data);
 
   const handleSearchInput = debounce((e) => {
     setSearch(e.target.value);
@@ -67,8 +66,8 @@ const ProductLists = () => {
           />
         </div>
         <Link
-          to={"/productCreate"}
-          className="flex h-[36px] rounded-md px-2 dark:bg-orange-600 items-center gap-2 bg-orange-500 text-white text-[14px] text-nowrap"
+          to={"/dashboard/productCreate"}
+          className="flex h-[36px] rounded-md px-2 dark:bg-zinc-100 dark:text-black items-center gap-2 bg-zinc-900 text-white text-[14px] text-nowrap"
         >
           <LuPlus /> Add New
         </Link>

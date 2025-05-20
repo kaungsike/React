@@ -16,6 +16,8 @@ import useSWR from "swr";
 import { dotWave } from "ldrs";
 import { debounce, throttle } from "lodash";
 import useCookie from "react-use-cookie";
+import { Link } from "react-router-dom";
+import ProductPagination from "./ProductPagination";
 
 const VoucherLists = () => {
 
@@ -51,9 +53,9 @@ const VoucherLists = () => {
             placeholder="Search with name"
           />
         </div>
-        <Button type="button">
+        <Link className="w-full max-w-[130px] font-[12px] text-white bg-zinc-900 dark:bg-zinc-100 dark:text-black rounded-md flex items-center justify-center gap-2 h-[36px] mb-1" to={"/dashboard/sale"} type="button">
           <LuPlus /> Add New
-        </Button>
+        </Link>
       </div>{" "}
       <div className="mt-5">
         <Table className="">
@@ -79,8 +81,8 @@ const VoucherLists = () => {
                   ></l-dot-wave>
                 </th>
               </tr>
-            ) : data.data.length > 0 ? (
-              data.data.map((item) => (
+            ) : data.data?.length > 0 ? (
+              data.data?.map((item) => (
                 <Voucher_List_Row setUrl={setUrl} key={item.voucher_id} voucher={item} />
               ))
             ) : (
@@ -92,6 +94,8 @@ const VoucherLists = () => {
             )}
           </TableBody>
         </Table>
+
+        {!isLoading && <ProductPagination setUrl={setUrl} meta={data?.meta} links={data?.links}/>}
       </div>
     </>
   );
