@@ -94,7 +94,7 @@ const VoucherTable = () => {
         <tbody>
           {isLoading ? (
             <tr>
-              <p>Is Loading</p>
+              <th>Is loading</th>
             </tr>
           ) : (
             data.data.map((item) => (

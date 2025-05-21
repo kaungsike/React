@@ -84,7 +84,7 @@ export function ProductTable() {
         <tbody>
           {isLoading ? (
             <tr>
-              <p>Is Loading</p>
+              <td>Is loading</td>
             </tr>
           ) : (
             data.data.map((item) => <ProductTableRow key={item.id} product={item} />)

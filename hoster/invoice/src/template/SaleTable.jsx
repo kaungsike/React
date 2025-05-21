@@ -1,27 +1,15 @@
 import { Card, Typography } from "@material-tailwind/react";
-import useCookie from "react-use-cookie";
-import useSWR from "swr";
-import ProductTableRow from "./ProductTableRow";
+import SaleTableRow from "./SaleTableRow";
+import useRecordsStore from "../store/useRecordsStore";
 
 export function SaleTable() {
-  const [token] = useCookie("my_token");
 
-  const fetcher = (url) =>
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((r) => r.json());
+  const { records } = useRecordsStore();
 
-  const { data, isLoading, error } = useSWR(
-    import.meta.env.VITE_API_URL + "/products",
-    fetcher
-  );
 
-  !isLoading && console.log(data);
 
   return (
-    <Card className="h-full w-full overflow-scroll mt-5">
+    <Card className=" w-full overflow-scroll md:overflow-auto rounded-md mt-5">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -56,9 +44,9 @@ export function SaleTable() {
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal leading-none opacity-70"
+                className="font-normal leading-none opacity-70 text-center"
               >
-                Created At
+                Quantity
               </Typography>
             </th>
             <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
@@ -67,14 +55,14 @@ export function SaleTable() {
                 color="blue-gray"
                 className="font-normal leading-none opacity-70"
               >
-                Update At
+                Cost
               </Typography>
             </th>
             <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal leading-none opacity-70 text-end pr-10"
+                className="font-normal leading-none opacity-70 text-end "
               >
                 Action
               </Typography>
@@ -82,13 +70,13 @@ export function SaleTable() {
           </tr>
         </thead>
         <tbody>
-          {/* {isLoading ? (
-            <tr>
-              <p>Is Loading</p>
-            </tr>
+          {records.length>0 ? (
+            records.map((item,index) => <SaleTableRow index={index} item={item} key={item.id} />)
           ) : (
-            data.data.map((item) => <ProductTableRow key={item.id} product={item} />)
-          )} */}
+            <tr>
+              <td colSpan={6} className="text-center h-[50px]">There is no items</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </Card>

@@ -44,7 +44,7 @@ const LoginForm = () => {
       toast.error("Something worng. Try again")
     }
 
-    // reset();
+    reset();
   };
 
   return (
