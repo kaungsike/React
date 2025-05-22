@@ -18,7 +18,6 @@ const VoucherDetailPage = () => {
             <Breadcrumb currentPage={"Voucher Detail"} link={link}/>
             <VoucherDetailCard/>
         </Container>
-
     </div>
   )
 }

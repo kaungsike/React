@@ -10,7 +10,7 @@ const Pagination = ({
 
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 mb-5">
       {prev && (
         <Button onClick={() => setUrl(prev)} variant="text" className="flex items-center gap-2">
           <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous

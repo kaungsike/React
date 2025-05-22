@@ -119,7 +119,8 @@ const ProductTableRow = ({
                 ) : (
                   <IoTrashOutline size={18} className="text-red-500" />
                 )}
-              </Button>
+              </Button> 
+              
             </ButtonGroup>
           </Typography>
         </td>

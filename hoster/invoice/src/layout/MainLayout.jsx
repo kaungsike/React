@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,6 +8,14 @@ const MainLayout = () => {
   const navigate = useNavigate();
 
   const [token] = useCookie("my_token");
+
+  useEffect(() => {
+    if(!token){
+      navigate("/")
+    }
+  },
+  []
+  ) 
 
   return (
     <div className="flex flex-col min-h-screen">
