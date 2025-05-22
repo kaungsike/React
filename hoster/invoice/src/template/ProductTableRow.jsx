@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 
 const ProductTableRow = ({
   product: { id, product_name, price, created_at, updated_at },
+  showId,
+  showCreatedAt,
+  showUpdatedAt,
 }) => {
   const [token] = useCookie("my_token");
 
@@ -52,11 +55,17 @@ const ProductTableRow = ({
   return (
     <>
       <tr>
-        <td className={classes}>
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            {id}
-          </Typography>
-        </td>
+        {showId && (
+          <td className={classes}>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal"
+            >
+              {id}
+            </Typography>
+          </td>
+        )}
         <td className={classes}>
           <Typography variant="small" color="blue-gray" className="font-normal">
             {product_name}
@@ -67,16 +76,28 @@ const ProductTableRow = ({
             {price}
           </Typography>
         </td>
-        <td className={classes}>
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            {isoToLocal(created_at)}
-          </Typography>
-        </td>
-        <td className={classes}>
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            {isoToLocal(updated_at)}
-          </Typography>
-        </td>
+        {showCreatedAt && (
+          <td className={classes}>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal"
+            >
+              {isoToLocal(created_at)}
+            </Typography>
+          </td>
+        )}
+        {showUpdatedAt && (
+          <td className={classes}>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal"
+            >
+              {isoToLocal(updated_at)}
+            </Typography>
+          </td>
+        )}
         <td className="p-4 border-b border-blue-gray-50 text-end">
           <Typography variant="small" color="blue-gray" className="font-normal">
             <ButtonGroup size="sm" variant="text" className="justify-end">

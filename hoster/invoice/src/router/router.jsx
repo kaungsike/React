@@ -9,6 +9,7 @@ import SalePage from "../pages/SalePage";
 import VoucherPage from "../pages/VoucherPage";
 import AddProductPage from "../pages/ProductAdd";
 import ProductEditPage from "../pages/ProductEditPage";
+import VoucherDetailPage from "../pages/VoucherDetailPage";
 
 
 
@@ -52,6 +53,10 @@ const route = createBrowserRouter([
                     {
                         path : "vouchers",
                         element : <VoucherPage/>
+                    },
+                    {
+                        path : "vouchers/detail/:id",
+                        element : <VoucherDetailPage/>
                     }
                 ]
             },
