@@ -9,7 +9,7 @@ export function SaleTable() {
 
 
   return (
-    <Card className=" w-full overflow-scroll md:overflow-auto rounded-md mt-5">
+    <Card className=" w-full overflow-scroll md:overflow-auto rounded-md mt-5 mb-5">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
