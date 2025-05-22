@@ -72,9 +72,6 @@ const SaleTableRow = ({
         <td className="p-4 border-b border-blue-gray-50 text-end">
           <Typography variant="small" color="blue-gray" className="font-normal">
             <ButtonGroup size="sm" variant="text" className="justify-end">
-              {/* <Button>
-                <AiTwotoneEdit size={18} />
-              </Button> */}
               <Button className="">
                 <IoTrashOutline size={18} className="text-red-500" />
               </Button>

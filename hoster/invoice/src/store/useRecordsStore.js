@@ -23,6 +23,10 @@ const useRecordsStore = create((set) => ({
         return el;
       }),
     })),
+
+    resetRecotds : () => {
+        set((state) => ({records : []}) )
+    }
 }));
 
 export default useRecordsStore;

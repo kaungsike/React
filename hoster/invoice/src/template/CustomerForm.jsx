@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import useCookie from "react-use-cookie";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useRecordsStore from "../store/useRecordsStore";
 
 const CustomerForm = () => {
   const {
@@ -19,35 +20,10 @@ const CustomerForm = () => {
     formState: { errors },
   } = useForm();
 
-  const [token, setToken] = useCookie("my_token");
+  const [token] = useCookie("my_token");
+  const { records,resetRecotds } = useRecordsStore();
 
   const navigate = useNavigate();
-
-  const handleLogin = async (data) => {
-
-    console.log(data);
-
-    // const res = await fetch(import.meta.env.VITE_API_URL + "/login", {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    // });
-
-    // const json = await res.json();
-
-    // if (res.status == 200) {
-    //   toast.success("Login successfully.");
-    //   setToken(json.token);
-    //   navigate("/dashboard");
-    // } else {
-    //   toast.error("Something worng. Try again");
-    // }
-
-    // reset();
-  };
 
   const generateVoucherId = () => {
     const timestamp = Date.now();
@@ -62,6 +38,51 @@ const CustomerForm = () => {
     return date;
   };
 
+  const handlePlaceOrderForm = async (data) => {
+    const total = records.reduce((a, b) => a + Number(b.cost), 0);
+    const tax = total * 0.02;
+    const net_total = total + tax;
+
+    const finalData = {
+      voucher_id: data.voucher_id,
+      customer_name: data.customer_name,
+      customer_email: data.email,
+      records: records,
+      sale_date: data.sale_date,
+      total,
+      tax,
+      net_total
+    };
+
+    const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
+      method: "POST",
+      body: JSON.stringify(finalData),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await res.json();
+
+    if (res.status == 200) {
+        toast(json.message,{ icon: '',});
+      setToken(json.token);
+    //   navigate("/dashboard");
+    } else {
+      toast.error(json.message);
+    }
+    reset({
+        voucher_id : generateVoucherId(),
+        sale_date : generateDate(),
+        customer_name : "",
+        email : ""
+    });
+    resetRecotds();
+  };
+
+
   return (
     <div>
       {" "}
@@ -73,7 +94,7 @@ const CustomerForm = () => {
           Nice to meet you! Enter your details to get a voucher.
         </Typography>
         <form
-          onSubmit={handleSubmit(handleLogin)}
+          onSubmit={handleSubmit(handlePlaceOrderForm)}
           className="mt-8 mb-2 w-full md:w-80 max-w-screen-lg sm:w-96"
         >
           <div className="mb-1 flex flex-col gap-3">
@@ -194,7 +215,7 @@ const CustomerForm = () => {
             </Typography>
             <div>
               <Input
-                {...register("date", {
+                {...register("sale_date", {
                   required: true,
                 })}
                 aria-invalid={errors.date ? "true" : "false"}

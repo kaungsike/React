@@ -7,6 +7,8 @@ import Dashboard from "../pages/Dashboard";
 import ProductPage from "../pages/ProductPage";
 import SalePage from "../pages/SalePage";
 import VoucherPage from "../pages/VoucherPage";
+import AddProductPage from "../pages/ProductAdd";
+import ProductEditPage from "../pages/ProductEditPage";
 
 
 
@@ -34,6 +36,14 @@ const route = createBrowserRouter([
                     {
                         path : "products",
                         element : <ProductPage/>
+                    },
+                    {
+                        path : "products/addNew",
+                        element : <AddProductPage/>
+                    },
+                    {
+                        path : "product/edit/:id",
+                        element : <ProductEditPage/>
                     },
                     {
                         path : "sales",

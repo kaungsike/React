@@ -9,9 +9,9 @@ import useRecordsStore from "../store/useRecordsStore";
 const SaleForm = () => {
   const [token] = useCookie("my_token");
 
-  const {addRecord,records} = useRecordsStore();
+  const { addRecord, records } = useRecordsStore();
 
-  records && records.map((el) => console.log(el))
+  records && records.map((el) => console.log(el));
 
   const {
     register,
@@ -20,9 +20,9 @@ const SaleForm = () => {
     reset,
     control,
   } = useForm({
-    defaultValues : {
-      product : ""
-    }
+    defaultValues: {
+      product: "",
+    },
   });
 
   const fetcher = (url) =>
@@ -39,25 +39,24 @@ const SaleForm = () => {
 
   const handleSaleForm = (data) => {
     console.log(data);
-    const product = JSON.parse(data.product)
+    const product = JSON.parse(data.product);
 
-    const quantity = parseInt(data.quantity)
-    const price = parseFloat(product.price)
+    const quantity = parseInt(data.quantity);
+    const price = parseFloat(product.price);
 
     const finalData = {
-      quantity : quantity,
-      cost : (quantity * price).toFixed(2),
-      product_id : product.id,
-      product : product,
-      created_at : new Date().toISOString()
-    }
+      quantity: quantity,
+      cost: (quantity * price).toFixed(2),
+      product_id: product.id,
+      product: product,
+      created_at: new Date().toISOString(),
+    };
 
-    addRecord(finalData)
-    
+    addRecord(finalData);
 
     console.log(finalData);
 
-    reset()
+    reset();
   };
 
   return (
@@ -71,7 +70,11 @@ const SaleForm = () => {
               defaultValue=""
               rules={{ required: "Please select a product" }}
               render={({ field }) => (
-                <Select label="Select Product" {...field.product_name} onChange={(value) => field.onChange(value)}>
+                <Select
+                  label="Select Product"
+                  {...field.product_name}
+                  onChange={(value) => field.onChange(value)}
+                >
                   {isLoading ? (
                     <Option>Loading...</Option>
                   ) : (
@@ -89,10 +92,25 @@ const SaleForm = () => {
             <Input
               {...register("quantity", {
                 required: true,
+                min: {
+                  value: 1,
+                },
               })}
               label="Quantity"
               type="number"
             />
+
+            {errors.quantity?.type === "min" && (
+              <p role="alert" className="text-red-500 text-sm mt-1">
+                Quantity must be at least 1
+              </p>
+            )}
+
+            {errors.quantity?.type === "required" && (
+              <p role="alert" className="text-red-500 text-sm mt-1">
+                Quantity is required
+              </p>
+            )}
           </div>
           <div className="w-full">
             <Button type="submit" className="w-full">
