@@ -26,6 +26,7 @@ const LoginForm = () => {
       } = useForm();
 
       const [token,setToken] = useCookie("my_token");
+      const [userCookie,setUserCookie] = useCookie("user")
 
     
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ const LoginForm = () => {
             console.log(json);
             console.log(res);
             setToken(json.token)
+            setUserCookie(JSON.stringify(json.user))
             navigate("/dashboard")
           } else {
             toast.error("Failed to Login.");
