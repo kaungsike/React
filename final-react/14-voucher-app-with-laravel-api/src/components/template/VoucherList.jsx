@@ -16,15 +16,20 @@ import useSWR from "swr";
 import { dotWave } from "ldrs";
 import { debounce, throttle } from "lodash";
 import useCookie from "react-use-cookie";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProductPagination from "./ProductPagination";
 
 const VoucherLists = () => {
 
-  const [url, setUrl] = useState(import.meta.env.VITE_API_URL + "/vouchers");
+
 
   const [token] = useCookie("my_token");
 
+  const location = useLocation();
+
+  console.log(location.search);
+
+  const [url, setUrl] = useState(import.meta.env.VITE_API_URL + "/vouchers"+location.search);
   const fetcher = (url) =>
     fetch(url, {
       headers: {
@@ -81,8 +86,8 @@ const VoucherLists = () => {
                   ></l-dot-wave>
                 </th>
               </tr>
-            ) : data.data?.length > 0 ? (
-              data.data?.map((item) => (
+            ) : data?.data?.length > 0 ? (
+              data?.data?.map((item) => (
                 <Voucher_List_Row setUrl={setUrl} key={item.voucher_id} voucher={item} />
               ))
             ) : (

@@ -44,8 +44,8 @@ const Header = () => {
               <img
                 className="w-[40px] h-[40px] rounded-full "
                 src={
-                  userObj.profile_image
-                    ? `${userObj.profile_image}`
+                  user?.profile_image
+                    ? `${user.profile_image}`
                     : "https://static.thenounproject.com/png/4530368-200.png"
                 }
                 alt=""
