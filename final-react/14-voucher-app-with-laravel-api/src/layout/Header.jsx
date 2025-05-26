@@ -28,10 +28,6 @@ const Header = () => {
 
   const userObj = JSON.parse(userCookie);
 
-  console.log(userObj);
-
-  console.log(user);
-
   return (
     <div className="border-b bg-background border-border">
       <Container>

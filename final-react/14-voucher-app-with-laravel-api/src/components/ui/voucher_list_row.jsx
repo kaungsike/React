@@ -31,7 +31,7 @@ const Voucher_List_Row = ({
   },
   deleteProduct,
   unDeleteProduct,
-  setUrl,
+  updateUrl,
   index,
 }) => {
   const [loading, setLoading] = useState(false);
@@ -91,6 +91,7 @@ const Voucher_List_Row = ({
 
   return (
     <TableRow>
+      <TableCell className="font-medium pl-4">{id}</TableCell>
       <TableCell className="font-medium">{voucher_id}</TableCell>
       <TableCell>{customer_name}</TableCell>
       <TableCell>$ {customer_email}</TableCell>

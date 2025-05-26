@@ -12,14 +12,14 @@ import {
 const ProductPagination = ({
   links: { prev, next },
   meta: { current_page, total, from, to, last_page },
-  setUrl,
+  updateUrl,
 }) => {
   return (
     <div className="mt-5">
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            {prev && <PaginationPrevious onClick={() => setUrl(prev)} />}
+            {prev && <PaginationPrevious onClick={() => updateUrl(prev)} />}
           </PaginationItem>
           <PaginationItem>
             <PaginationLink className="bg-gray-300 dark:bg-gray-700" href="#">
@@ -30,11 +30,11 @@ const ProductPagination = ({
             current_page+1 &&
             (
                 <PaginationItem>
-                  <PaginationLink  onClick={() => setUrl(next)} >{current_page + 1}</PaginationLink>
+                  <PaginationLink  onClick={() => updateUrl(next)} >{current_page + 1}</PaginationLink>
                 </PaginationItem>
               )}
           <PaginationItem>
-            {next && <PaginationNext onClick={() => setUrl(next)} />}
+            {next && <PaginationNext onClick={() => updateUrl(next)} />}
           </PaginationItem>
         </PaginationContent>
       </Pagination>

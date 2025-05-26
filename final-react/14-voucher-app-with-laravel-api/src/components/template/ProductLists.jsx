@@ -15,15 +15,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LuPlus } from "react-icons/lu";
 import { FiSearch } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { debounce } from "lodash";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { debounce, set } from "lodash";
 import useCookie from "react-use-cookie";
 import ProductPagination from "./ProductPagination";
 
 const ProductLists = () => {
   const [token] = useCookie("my_token");
 
-  const [url, setUrl] = useState(import.meta.env.VITE_API_URL + "/products");
+  const [parms, setParms] = useSearchParams();
+
+  const location = useLocation();
+
+  const [url, setUrl] = useState(
+    import.meta.env.VITE_API_URL + "/products" + location.search
+  );
   const fetcher = (url) =>
     fetch(url, {
       headers: {
@@ -48,11 +54,27 @@ const ProductLists = () => {
     mutate(import.meta.env.VITE_API_URL + "/products");
   };
 
+  const updateUrl = (newUrl) => {
+    const currenUrl = new URL(newUrl);
+
+    const newSearchParms = new URLSearchParams(currenUrl.search);
+
+    const parmsObj = Object.fromEntries(newSearchParms);
+
+    setParms(parmsObj);
+
+    setUrl(newUrl)
+
+  };
 
   const handleSearchInput = debounce((e) => {
-    setSearch(e.target.value);
-    setUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`)
-    console.log(url);
+    if(e.target.value){
+      setParms({q : e.target.value})
+      setUrl(`${import.meta.env.VITE_API_URL}/products`+location.search);
+    }else{
+      setParms({});
+      setUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`);
+    }
   }, 1000);
 
   return (
@@ -105,7 +127,13 @@ const ProductLists = () => {
           )}
         </TableBody>
       </Table>
-     {!isLoading &&  <ProductPagination setUrl={setUrl} meta={data?.meta} links={data?.links}/>}
+      {!isLoading && (
+        <ProductPagination
+          updateUrl={updateUrl}
+          meta={data?.meta}
+          links={data?.links}
+        />
+      )}
     </div>
   );
 };
