@@ -12,6 +12,7 @@ import ProductEditPage from "../pages/ProductEditPage";
 import VoucherDetailPage from "../pages/VoucherDetailPage";
 import UserProfilePage from "../pages/UserProfilePage";
 import UserChangeNamePage from "../pages/UserChangeNamePage";
+import { UserChangeImagPage } from "../pages/UserChangeImagPage";
 
 
 
@@ -70,6 +71,10 @@ const route = createBrowserRouter([
                             {
                                 path : "user-change-name",
                                 element : <UserChangeNamePage/>
+                            },
+                            {
+                                path : "user-change-image",
+                                element : <UserChangeImagPage/>
                             }
                         ]
                     }

@@ -16,16 +16,16 @@ const UserProfileCard = () => {
       <div className="flex items-start gap-4 w-full md:w-1/2">
         <img
           src={
-            user.profile_image
-              ? `${user.profile_image}`
+            userStore.profile_image
+              ? `${userStore.profile_image}`
               : "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
           }
           alt="Company Logo"
           className="w-20 h-20 rounded-full object-cover"
         />
         <div>
-          <h2 className="text-xl font-semibold">{user.name}</h2>
-          <p className="text-sm text-muted-foreground">{user.email}</p>
+          <h2 className="text-xl font-semibold">{userStore.name}</h2>
+          <p className="text-sm text-muted-foreground">{userStore.email}</p>
           <div className="mt-2 flex gap-4 flex-wrap text-xs text-muted-foreground">
             <Link
               to={"user-change-image"}
@@ -38,12 +38,6 @@ const UserProfileCard = () => {
               className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
             >
               Change Name
-            </Link>
-            <Link
-              to={"user-change-password"}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[>svg]:px-3"
-            >
-              Change Password
             </Link>
           </div>
         </div>
