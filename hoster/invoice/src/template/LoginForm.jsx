@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import useCookie from "react-use-cookie";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import js from "@eslint/js";
 
 const LoginForm = () => {
 
@@ -21,6 +22,7 @@ const LoginForm = () => {
   } = useForm();
 
   const [token,setToken] = useCookie('my_token');
+  const [user,setUser] = useCookie('user');
 
   const navigate = useNavigate();
 
@@ -39,6 +41,8 @@ const LoginForm = () => {
     if (res.status == 200) {
       toast.success("Login successfully.")
       setToken(json.token)
+      console.log(json);
+      setUser(JSON.stringify(json.user))
       navigate("/dashboard")
     } else {
       toast.error("Something worng. Try again")

@@ -10,6 +10,8 @@ import VoucherPage from "../pages/VoucherPage";
 import AddProductPage from "../pages/ProductAdd";
 import ProductEditPage from "../pages/ProductEditPage";
 import VoucherDetailPage from "../pages/VoucherDetailPage";
+import UserProfilePage from "../pages/UserProfilePage";
+import UserChangeNamePage from "../pages/UserChangeNamePage";
 
 
 
@@ -57,6 +59,19 @@ const route = createBrowserRouter([
                     {
                         path : "vouchers/detail/:id",
                         element : <VoucherDetailPage/>
+                    },
+                    {
+                        path : "profile",
+                        children : [
+                            {
+                                index : true,
+                                element : <UserProfilePage/>
+                            },
+                            {
+                                path : "user-change-name",
+                                element : <UserChangeNamePage/>
+                            }
+                        ]
                     }
                 ]
             },

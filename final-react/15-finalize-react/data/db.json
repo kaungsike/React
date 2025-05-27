@@ -1,0 +1,186 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "OnePlus 12",
+      "price": 799.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "OnePlus 12R",
+      "price": 499.99,
+      "createdAt": "2024-01-23T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "OnePlus Nord CE 3 Lite",
+      "price": 229.99,
+      "createdAt": "2023-04-04T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "OnePlus Nord 3",
+      "price": 399.99,
+      "createdAt": "2023-07-05T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "name": "OnePlus 11",
+      "price": 699.99,
+      "createdAt": "2023-01-10T00:00:00Z"
+    },
+    {
+      "id": 7,
+      "name": "OnePlus 10 Pro",
+      "price": 699.99,
+      "createdAt": "2022-01-11T00:00:00Z"
+    },
+    {
+      "id": 8,
+      "name": "OnePlus Nord CE 2",
+      "price": 249.99,
+      "createdAt": "2022-02-17T00:00:00Z"
+    },
+    {
+      "id": 9,
+      "name": "OnePlus Nord N200",
+      "price": 199.99,
+      "createdAt": "2021-06-25T00:00:00Z"
+    },
+    {
+      "id": 10,
+      "name": "OnePlus 9 Pro",
+      "price": 899.99,
+      "createdAt": "2021-03-23T00:00:00Z"
+    },
+    {
+      "id": 11,
+      "name": "OnePlus 9",
+      "price": 729.99,
+      "createdAt": "2021-03-23T00:00:00Z"
+    },
+    {
+      "id": 12,
+      "name": "OnePlus 8T",
+      "price": 599.99,
+      "createdAt": "2020-10-14T00:00:00Z"
+    },
+    {
+      "id": 13,
+      "name": "OnePlus Nord N10",
+      "price": 299.99,
+      "createdAt": "2020-11-21T00:00:00Z"
+    },
+    {
+      "id": 14,
+      "name": "OnePlus Nord N100",
+      "price": 179.99,
+      "createdAt": "2020-11-21T00:00:00Z"
+    },
+    {
+      "id": 15,
+      "name": "OnePlus Nord",
+      "price": 399.99,
+      "createdAt": "2020-07-21T00:00:00Z"
+    },
+    {
+      "id": 16,
+      "name": "OnePlus 8 Pro",
+      "price": 899.99,
+      "createdAt": "2020-04-14T00:00:00Z"
+    },
+    {
+      "id": 17,
+      "name": "OnePlus 8",
+      "price": 699.99,
+      "createdAt": "2020-04-14T00:00:00Z"
+    }
+  ],
+  "vouchers": [
+    {
+      "voucherId": "VOUCH-marqv798-ON4K8",
+      "customerName": "Kyaw Kyaw",
+      "customerEmail": "santar9@gmail.com",
+      "saleDate": "2025-05-17",
+      "records": [
+        {
+          "id": 1747457152862,
+          "productId": 3,
+          "name": "OnePlus Nord CE 3 Lite",
+          "price": 229.99,
+          "quantity": 1,
+          "cost": 229.99
+        },
+        {
+          "id": 1747457156971,
+          "productId": 8,
+          "name": "OnePlus Nord CE 2",
+          "price": 249.99,
+          "quantity": 2,
+          "cost": 499.98
+        }
+      ],
+      "total": "729.97",
+      "tax": "36.50",
+      "grandTotal": "766.47",
+      "id": 1
+    },
+    {
+      "voucherId": "VOUCH-mas2mg3g-NR877",
+      "customerName": "Kyaw Kyaw",
+      "customerEmail": "santar9@gmail.com",
+      "saleDate": "2025-05-17",
+      "records": [
+        {
+          "id": 1747475575172,
+          "productId": 2,
+          "name": "OnePlus 12R",
+          "price": 499.99,
+          "quantity": 2,
+          "cost": 999.98
+        },
+        {
+          "id": 1747477109172,
+          "productId": 10,
+          "name": "OnePlus 9 Pro",
+          "price": 899.99,
+          "quantity": 4,
+          "cost": 3599.96
+        }
+      ],
+      "total": "4599.94",
+      "tax": "230.00",
+      "grandTotal": "4829.94",
+      "id": 2
+    },
+    {
+      "voucherId": "VOUCH-mas2shg5-EE8E2",
+      "customerName": "Kyaw Kyaw",
+      "customerEmail": "santar9@gmail.com",
+      "saleDate": "2025-05-17",
+      "records": [
+        {
+          "id": 1747477264085,
+          "productId": 3,
+          "name": "OnePlus Nord CE 3 Lite",
+          "price": 229.99,
+          "quantity": 5,
+          "cost": 1149.95
+        },
+        {
+          "id": 1747477275390,
+          "productId": 1,
+          "name": "OnePlus 12",
+          "price": 799.99,
+          "quantity": 5,
+          "cost": 3999.95
+        }
+      ],
+      "total": "5149.90",
+      "tax": "257.50",
+      "grandTotal": "5407.40",
+      "id": 3
+    }
+  ]
+}
