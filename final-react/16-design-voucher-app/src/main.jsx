@@ -1,14 +1,15 @@
 
-import './index.css'
+import './styles/index.css'
 
-import React, { StrictMode } from 'react'; // <--- Add this if missing
+import React, { StrictMode } from 'react'; 
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import 'preline/preline'; // if using Preline
+import 'preline/preline'; 
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import route from './routes/router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <App />
+    <RouterProvider router={route}/>
   </StrictMode>
 );
