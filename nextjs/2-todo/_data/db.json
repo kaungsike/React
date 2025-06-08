@@ -1,0 +1,10 @@
+{
+  "tasks": [
+    {
+      "id": 2,
+      "title": "Practice routing in Next.js",
+      "status": false,
+      "created_at": "2025-06-02T14:30:00Z"
+    }
+  ]
+}
