@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductTable = () => {
+const VoucherTable = () => {
   return (
     <>
       {/* Table Section */}
@@ -1598,4 +1598,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default VoucherTable;
