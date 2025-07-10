@@ -1,8 +1,36 @@
 import { isoStringToDate } from "@/services/time";
 import React from "react";
-import { IoTrashOutline } from "react-icons/io5";
+import { Pencil, Trash2 } from "lucide-react";
+import { deleteProduct, PRODUCT_API_URL } from "@/services/product";
+import toast from "react-hot-toast";
+import { useSWRConfig } from "swr";
 
 const ProductTableRow = ({ data }) => {
+
+  const {mutate} = useSWRConfig()
+
+const handleDeleteProduct = async () => {
+  try {
+
+    const deletingToastId = toast.loading("Deleting in...");
+
+    const res = await deleteProduct(data.id);
+
+    if (res.ok) {
+      console.log("Delete successful:");
+      toast.success("Delete successful!", { id: deletingToastId });
+      mutate(PRODUCT_API_URL+"/products"); 
+      console.log(PRODUCT_API_URL)
+    } else {
+      toast.error("Delete failed.", { id: deletingToastId });
+    }
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    toast.error("Something went wrong.");
+  }
+};
+
+
   return (
     <>
       <tr className="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
@@ -90,15 +118,16 @@ const ProductTableRow = ({ data }) => {
           <div className="inline-flex rounded-lg shadow-2xs">
             <button
               type="button"
-              className="py-1.5 px-2 inline-flex justify-center items-center text-center gap-1 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              className="py-1.5 px-2 group duration-150 inline-flex justify-center items-center text-center gap-1 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
             >
-              Small
+              <Pencil className="group-hover:text-blue-500" size={16} />
             </button>
             <button
+              onClick={handleDeleteProduct}
               type="button"
-              className="py-1.5 px-2 inline-flex justify-center items-center text-center gap-1 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              className="py-1.5  group duration-150 px-2 inline-flex justify-center items-center text-center gap-1 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
             >
-              <IoTrashOutline />
+              <Trash2 className="group-hover:text-red-500" size={16} />
             </button>
           </div>
         </td>
