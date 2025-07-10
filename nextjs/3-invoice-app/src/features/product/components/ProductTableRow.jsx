@@ -19,7 +19,7 @@ const handleDeleteProduct = async () => {
     if (res.ok) {
       console.log("Delete successful:");
       toast.success("Delete successful!", { id: deletingToastId });
-      mutate(PRODUCT_API_URL+"/products"); 
+      mutate(PRODUCT_API_URL); 
       console.log(PRODUCT_API_URL)
     } else {
       toast.error("Delete failed.", { id: deletingToastId });

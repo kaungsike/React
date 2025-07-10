@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ProductCreateForm from "../components/ProductCreateForm";
 
 const ProductCreatePage = () => {
   return (
-    <div>ProductCreatePage</div>
-  )
-}
+    <>
+      <ProductCreateForm />
+    </>
+  );
+};
 
-export default ProductCreatePage
+export default ProductCreatePage;

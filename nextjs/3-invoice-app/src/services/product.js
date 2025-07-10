@@ -13,6 +13,18 @@ export const getProducts = () => {
   }).then((res) => res.json());
 };
 
+export const createProduct = (data) => {
+  return fetch(PRODUCT_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data)
+  });
+}
+
+
 export const deleteProduct = (id) => {
 
   return fetch(PRODUCT_API_URL+"/"+id, {
