@@ -4,6 +4,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import { deleteProduct, PRODUCT_API_URL } from "@/services/product";
 import toast from "react-hot-toast";
 import { useSWRConfig } from "swr";
+import Link from "next/link";
 
 const ProductTableRow = ({ data }) => {
 
@@ -116,12 +117,13 @@ const handleDeleteProduct = async () => {
         </td>
         <td className="size-px whitespace-nowrap">
           <div className="inline-flex rounded-lg shadow-2xs">
-            <button
+            <Link
+            href={`/dashboard/product/edit/${data.id}`}
               type="button"
               className="py-1.5 px-2 group duration-150 inline-flex justify-center items-center text-center gap-1 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
             >
               <Pencil className="group-hover:text-blue-500" size={16} />
-            </button>
+            </Link>
             <button
               onClick={handleDeleteProduct}
               type="button"

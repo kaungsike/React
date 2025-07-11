@@ -1,27 +1,30 @@
 "use client";
-import React from "react";
-import useCreateProduct from "../hooks/useCreateProduct";
-import { Link } from "lucide-react";
+import React from 'react'
+import useEditProduct from '../hooks/useEditProduct'
 
-const ProductCreateForm = () => {
-  const { register, handleSubmit, handleCreateProduct,errors } = useCreateProduct();
+const ProductEditForm = () => {
+
+  const {register,handleSubmit,handleEditProduct,errors,data,isLoading} = useEditProduct();
+
+  !isLoading && console.log(data)
+
 
   return (
-    <>
+        <>
       {/* Card Section */}
       <div className="max-w-4xl ">
         {/* Card */}
         <div className="bg-white rounded-xl shadow-xs p-4 sm:p-7 dark:bg-neutral-800">
           <div className="mb-8">
             <h2 className="text-xl font-bold text-gray-800 dark:text-neutral-200">
-              Product
+              Edit Product
             </h2>
             <p className="text-sm text-gray-600 dark:text-neutral-400">
-              Fill out the details below to add a new product to your catalog.
+              Update the details below to edit the product in your catalog.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleCreateProduct)}>
+          <form onSubmit={handleSubmit(handleEditProduct)}>
             {/* Grid */}
             <div className="grid sm:grid-cols-12 gap-2 sm:gap-6">
               <div className="sm:col-span-3">
@@ -39,6 +42,7 @@ const ProductCreateForm = () => {
                   type="text"
                   id="product_name"
                   name="product_name"
+                  defaultValue={data?.data.product_name || ""}
                   {...register("product_name", {
                     required: "Name is required",
                     pattern: {
@@ -71,6 +75,7 @@ const ProductCreateForm = () => {
                   type="number"
                   id="price"
                   name="price"
+                  defaultValue={data?.data.price || ""}
                   {...register("price", {
                     required: "Price is required",
                     min: {
@@ -96,7 +101,7 @@ const ProductCreateForm = () => {
                 type="submit"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
               >
-                Create
+                Save changes
               </button>
             </div>
           </form>
@@ -105,7 +110,7 @@ const ProductCreateForm = () => {
       </div>
       {/* End Card Section */}
     </>
-  );
-};
+  )
+}
 
-export default ProductCreateForm;
+export default ProductEditForm

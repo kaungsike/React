@@ -31,7 +31,7 @@ const useCreateProduct = () => {
         });
         route.push("/dashboard/product");
       } else {
-        toast.error("Delete failed.", { id: creatingProductToastId });
+        toast.error("Create failed.", { id: creatingProductToastId });
       }
     } catch (error) {
       toast.error("Failed to create product. Please try again.");
