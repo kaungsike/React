@@ -1,27 +1,24 @@
 import React from "react";
 import useProduct from "../hooks/useProduct";
+import { useSearchParams } from "next/navigation";
 
-const ProductTableFooter = (data) => {
-  console.log("footer", data.data.meta);
+const ProductTableFooter = ({
+  links = { prev: null, next: null, first: null, last: null },
+  meta = {
+    total: 0,
+    to: 0,
+    from: 0,
+    per_page: 0,
+    current_page: 0,
+    last_page: 0,
+  },
+}) => {
 
-  const { meta } = data.data;
-  const { links } = data.data;
+  // const searchParams = useSearchParams();
+  // const currentLimit = searchParams.get("limit") ?? 5;
+  // const pageLimits = [5,10,20,50,100]
 
-  const {productPagination} = useProduct();
-
-  console.log( meta, links);
-
-  const handlePrev = () => {
-    if (links.prev) {
-      productPagination(links.prev);
-    }
-  }
-
-  const handleNext = () => {
-    if (links.next) {
-      productPagination(links.next);
-    }
-  }
+  // const { handelPagination } = useProduct()
 
   return (
     <>
@@ -71,7 +68,6 @@ const ProductTableFooter = (data) => {
 
             {links.next && (
               <button
-              onClick={handleNext}
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
               >

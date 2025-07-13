@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const ProductTableHeader = () => {
+const ProductTableHeader = ({handleSearch}) => {
   return (
     <>
 
@@ -27,6 +27,7 @@ const ProductTableHeader = () => {
                   </svg>
                 </div>
                 <input
+                onChange={handleSearch}
                   type="text"
                   className="py-2 ps-10 pe-16 block w-full bg-white border-gray-200 rounded-lg text-sm focus:outline-hidden focus:border-blue-500 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:ring-neutral-600"
                   placeholder="Search"

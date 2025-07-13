@@ -10,9 +10,7 @@ import TableRowSkeletonLoader from "@/loader/TableRowSkeletonLoader";
 import { getProducts } from "@/services/product";
 
 const ProductTable = () => {
-  const { data, isLoading, error, productPagination } = useProduct();
-
-  !isLoading && console.log("ProductTable data:", data.meta);
+  const { data, isLoading, error, handleSearch } = useProduct();
 
   return (
     <>
@@ -24,7 +22,7 @@ const ProductTable = () => {
             <div className=" min-w-full inline-block align-middle">
               <div className="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden dark:bg-neutral-900 dark:border-neutral-700">
                 {/* Header */}
-                <ProductTableHeader />
+                <ProductTableHeader handleSearch={handleSearch}/>
                 {/* End Header */}
 
                 {/* Collapse */}
@@ -52,7 +50,7 @@ const ProductTable = () => {
                 {isLoading ? (
                   <TableFooterSkeletonLoader />
                 ) : (
-                  <ProductTableFooter data={data} />
+                  <ProductTableFooter links={data?.links} meta={data?.meta} />
                 )}
                 {/* End Footer */}
               </div>
