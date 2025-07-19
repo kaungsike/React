@@ -10,7 +10,9 @@ import TableRowSkeletonLoader from "@/loader/TableRowSkeletonLoader";
 import { getProducts } from "@/services/product";
 
 const ProductTable = () => {
-  const { data, isLoading, error, handleSearch,handleClearSearch,searchRef } = useProduct();
+  const { data, isLoading, error, handleSearch,handleClearSearch,searchRef,handlePaginate } = useProduct();
+
+  !isLoading && console.log(data)
 
   return (
     <>
@@ -50,7 +52,7 @@ const ProductTable = () => {
                 {isLoading ? (
                   <TableFooterSkeletonLoader />
                 ) : (
-                  <ProductTableFooter links={data?.links} meta={data?.meta} />
+                  <ProductTableFooter handlePaginate={handlePaginate} links={data?.links} meta={data?.meta} />
                 )}
                 {/* End Footer */}
               </div>

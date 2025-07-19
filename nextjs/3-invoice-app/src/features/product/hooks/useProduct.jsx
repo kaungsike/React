@@ -57,6 +57,11 @@ const useProduct = () => {
     updateUrlParams(updateParams);
   };
 
+  const handlePaginate = (newUrl) => {
+    setUrl(newUrl);
+    updateUrlParams(newUrl);
+  }
+
   return {
     data,
     isLoading,
@@ -64,6 +69,7 @@ const useProduct = () => {
     setUrl,
     handleSearch,
     handleClearSearch,
+    handlePaginate,
     searchRef, // Return ref so component can attach it
   };
 };
