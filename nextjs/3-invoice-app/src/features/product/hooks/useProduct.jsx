@@ -1,7 +1,6 @@
 "use client";
 
 import { getProducts, PRODUCT_API_URL } from "@/services/product";
-import { extractSearchParamsToObject } from "@/utils/url";
 import { debounce } from "lodash";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -9,17 +8,13 @@ import useSWR from "swr";
 
 const useProduct = () => {
   const router = useRouter();
-  const searchRef = useRef()
+  const searchRef = useRef(null); // Make sure to set initial null
   const searchParams = useSearchParams();
   const currentParams = Object.fromEntries(searchParams.entries());
 
   const [url, setUrl] = useState("");
 
-  console.log("URL", url);
-
   const { data, isLoading, error } = useSWR(url, getProducts);
-
-  data && console.log("useProduct data:", data);
 
   // Update the API URL whenever the router query changes
   useEffect(() => {
@@ -29,31 +24,38 @@ const useProduct = () => {
 
     // Set input box from param (if available)
     if (searchRef.current) {
-      searchRef.current.value = currentParams.q| "";
+      searchRef.current.value = currentParams.q || "";
     }
   }, [searchParams]);
 
   const updateUrlParams = (newParams) => {
     const updateSearchParams = new URLSearchParams(newParams).toString();
-    console.log("Updated Search Params:", updateSearchParams);
     router.push(`?${updateSearchParams}`);
     setUrl(`${PRODUCT_API_URL}?${updateSearchParams}`);
   };
 
   const handleSearch = debounce((e) => {
     const value = e.target.value;
+    const updateParams = { ...currentParams };
 
-    const updateParams = {...currentParams}
-
-    if(value){
-      updateParams.q= value
-    }else{
+    if (value) {
+      updateParams.q = value;
+    } else {
       delete updateParams.q;
     }
 
     updateUrlParams(updateParams);
+  }, 1000);
 
-  },1000)
+  const handleClearSearch = () => {
+    if (searchRef.current) {
+      searchRef.current.value = ""; // Clear input value safely
+    }
+
+    const updateParams = { ...currentParams };
+    delete updateParams.q;
+    updateUrlParams(updateParams);
+  };
 
   return {
     data,
@@ -61,6 +63,8 @@ const useProduct = () => {
     error,
     setUrl,
     handleSearch,
+    handleClearSearch,
+    searchRef, // Return ref so component can attach it
   };
 };
 

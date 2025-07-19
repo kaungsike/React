@@ -10,7 +10,7 @@ import TableRowSkeletonLoader from "@/loader/TableRowSkeletonLoader";
 import { getProducts } from "@/services/product";
 
 const ProductTable = () => {
-  const { data, isLoading, error, handleSearch } = useProduct();
+  const { data, isLoading, error, handleSearch,handleClearSearch,searchRef } = useProduct();
 
   return (
     <>
@@ -22,7 +22,7 @@ const ProductTable = () => {
             <div className=" min-w-full inline-block align-middle">
               <div className="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden dark:bg-neutral-900 dark:border-neutral-700">
                 {/* Header */}
-                <ProductTableHeader handleSearch={handleSearch}/>
+                <ProductTableHeader searchRef={searchRef} handleClearSearch={handleClearSearch} handleSearch={handleSearch}/>
                 {/* End Header */}
 
                 {/* Collapse */}
