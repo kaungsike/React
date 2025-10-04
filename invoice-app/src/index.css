@@ -1,0 +1,8 @@
+/* All @import statements must be at the top */
+
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@import "./font.css";
+@custom-variant dark (&:where(.dark, .dark *));
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
